@@ -1,5 +1,5 @@
 import Head from "next/head";
-import DatabaseQueries from "../components/DatabaseQueries";
+const axios = require("axios")
 
 
 export default function App() {
@@ -12,7 +12,6 @@ export default function App() {
         </Head>
 
           <body>
-          <DatabaseQueries />
           </body>
       </>
   )
