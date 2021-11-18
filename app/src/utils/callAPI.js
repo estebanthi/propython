@@ -10,11 +10,11 @@ const get = async function (url) {
             authorization:tokenAuth
         }
     }
-    var data = await axios.get(url, config).then((res) => res.data)
+    const data = await axios.get(url, config).then((res) => res.data)
     return data
 }
 
-const post = async function (url) {
+const post = async function (url, data) {
     const appToken = generateTokenForApp()
     const tokenAuth = "Bearer "+appToken
     let config = {
@@ -22,7 +22,9 @@ const post = async function (url) {
             authorization:tokenAuth
         }
     }
-    await axios.post(url, {}, config)
+    const response = await axios.post(url, data, {headers:{authorization:tokenAuth}})
+        .then((res) => res.data)
+    return response
 }
 
 

@@ -14,6 +14,8 @@ export default async function handler(req, res) {
         }
 
         if (req.method == "POST") {
+            var response = await db.collection("Users").insertOne({username:req.body.username, password:req.body.password, email:req.body.email, isAdmin:req.body.isAdmin})
+            res.status(200).json({username:req.body.username, password:req.body.password, email:req.body.email, isAdmin:req.body.isAdmin})
         }
     }
     else {
