@@ -1,9 +1,6 @@
 // Imports
 var jwt = require('jsonwebtoken');
-
-
-// Constants
-const JWT_SIGN_SECRET = "0shzdzjzbhf74282hdjznfjdk9ndnzindn99jdnzndajne5";
+const {JWT_SIGN_SECRET} = require("../../secrets");
 
 // Generate a token when an user logs in
 const generateTokenForUser = function(userData) {
