@@ -4,7 +4,9 @@ import {checkAdminAccess} from "../../../utils/jwt.utils";
 export default async function handler(req, res) {
     var headerAuth = req.headers['authorization'];
     var isAdmin = checkAdminAccess(headerAuth);
+
     if (isAdmin == 1) {
+
         const client = await clientPromise;
         const db = client.db();
 
@@ -19,6 +21,6 @@ export default async function handler(req, res) {
         }
     }
     else {
-        res.status(500).json("access denied")
+        res.status(500).json("Access denied")
     }
 }

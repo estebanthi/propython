@@ -1,4 +1,4 @@
-import {get} from "../../../utils/callAPI";
+import {get} from "../../../utils/privateCallAPI";
 import {generateTokenForUser} from "../../../utils/jwt.utils";
 const bcrypt = require("bcrypt");
 

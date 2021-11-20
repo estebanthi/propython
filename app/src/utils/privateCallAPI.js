@@ -1,7 +1,7 @@
 const {generateTokenForApp} = require("./jwt.utils");
 const axios = require("axios");
 
-
+// Access private get routes
 const get = async function (url) {
     const appToken = generateTokenForApp()
     const tokenAuth = "Bearer "+appToken
@@ -14,6 +14,7 @@ const get = async function (url) {
     return data
 }
 
+// Access private post routes
 const post = async function (url, data) {
     const appToken = generateTokenForApp()
     const tokenAuth = "Bearer "+appToken

@@ -1,5 +1,4 @@
 import Head from "next/head";
-const axios = require("axios")
 
 
 export default function App() {
