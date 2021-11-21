@@ -1,7 +1,10 @@
 import Head from "next/head";
+import {Rectangle} from "react-shapes/lib/Shapes";
+import Home from "../components/Home";
+import DatabaseQueries from "../components/DatabaseQueries";
 
 
-export default function App() {
+export default function HomePage() {
 
 
   return (
@@ -10,9 +13,8 @@ export default function App() {
           <title>ProPython</title>
         </Head>
 
-          <body>
-          </body>
-      </>
+        <Home />
+          </>
   )
 }
 
