@@ -3,6 +3,11 @@ import {generateTokenForUser} from "../../../utils/jwt.utils";
 const bcrypt = require("bcrypt");
 
 export default async function handler(req, res) {
+
+    if (req.method != "POST") {
+        return res.status(404).json("Wrong method")
+    }
+
     const email = req.body.email
     const password = req.body.password
 
