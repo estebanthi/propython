@@ -4,11 +4,19 @@ import moment from "moment";
 const PostDetail = ({post}) => {
 
     const renderBulletedList = (index, obj) => {
-        return obj.children.map((children) => children.children.map((listItem) => {
+        return <ul class="list-disc ml-4">{obj.children.map((children) => children.children.map((listItem) => {
             return <li className="mb-4">{listItem.children.map((child) => {
                 return renderListItem(child)
             })}</li>
-    }))
+        }))}</ul>
+    }
+
+    const renderOrdonedList = (index, obj) => {
+        return <ol class="list-decimal ml-4">{obj.children.map((children) => children.children.map((listItem) => {
+            return <li className="mb-4">{listItem.children.map((child) => {
+                return renderListItem(child)
+            })}</li>
+        }))}</ol>
     }
 
 
@@ -59,7 +67,7 @@ const PostDetail = ({post}) => {
             case 'bulleted-list':
                 return renderBulletedList(index, obj)
             case 'numbered-list':
-                return renderBulletedList(index, obj)
+                return renderOrdonedList(index, obj)
             case 'heading-one':
                 return <h3 key={index} className="text-3xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
             case 'heading-two':
