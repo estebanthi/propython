@@ -3,6 +3,37 @@ import moment from "moment";
 
 const PostDetail = ({post}) => {
 
+    const renderBulletedList = (index, obj) => {
+        return obj.children.map((children) => children.children.map((listItem) => {
+            return <li className="mb-4">{listItem.children.map((child) => {
+                return renderListItem(child)
+            })}</li>
+    }))
+    }
+
+
+    const renderListItem = (listItem) => {
+        let modifiedText = listItem.text;
+        if (listItem.bold) {
+            modifiedText = (<b>{listItem.text}</b>);
+        }
+
+        if (listItem.italic) {
+            modifiedText = (<em>{listItem.text}</em>);
+        }
+
+        if (listItem.underline) {
+            modifiedText = (<u>{listItem.text}</u>);
+        }
+
+        if (listItem.code) {
+            modifiedText = (<code className="bg-gray-100 rounded-md text-red-500">{listItem.text}</code>);
+        }
+
+        return modifiedText
+    }
+
+
     const getContentFragment = (index, text, obj, type) => {
         let modifiedText = text;
 
@@ -18,9 +49,21 @@ const PostDetail = ({post}) => {
             if (obj.underline) {
                 modifiedText = (<u key={index}>{text}</u>);
             }
+            if (obj.code) {
+                modifiedText = (<code className="bg-gray-100 rounded-md text-red-500" key={index}>{text}</code>);
+            }
         }
 
+
         switch (type) {
+            case 'bulleted-list':
+                return renderBulletedList(index, obj)
+            case 'numbered-list':
+                return renderBulletedList(index, obj)
+            case 'heading-one':
+                return <h3 key={index} className="text-3xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
+            case 'heading-two':
+                return <h3 key={index} className="text-2xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
             case 'heading-three':
                 return <h3 key={index} className="text-xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
             case 'paragraph':
