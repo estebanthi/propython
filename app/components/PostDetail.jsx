@@ -1,97 +1,12 @@
 import React from "react";
 import moment from "moment";
+import { RichText } from '@graphcms/rich-text-react-renderer';
+import Link from "next/link";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+
 
 const PostDetail = ({post}) => {
-
-    const renderBulletedList = (index, obj) => {
-        return <ul class="list-disc ml-4">{obj.children.map((children) => children.children.map((listItem) => {
-            return <li className="mb-4">{listItem.children.map((child) => {
-                return renderListItem(child)
-            })}</li>
-        }))}</ul>
-    }
-
-    const renderOrdonedList = (index, obj) => {
-        return <ol class="list-decimal ml-4">{obj.children.map((children) => children.children.map((listItem) => {
-            return <li className="mb-4">{listItem.children.map((child) => {
-                return renderListItem(child)
-            })}</li>
-        }))}</ol>
-    }
-
-
-    const renderListItem = (listItem) => {
-        let modifiedText = listItem.text;
-        if (listItem.bold) {
-            modifiedText = (<b>{listItem.text}</b>);
-        }
-
-        if (listItem.italic) {
-            modifiedText = (<em>{listItem.text}</em>);
-        }
-
-        if (listItem.underline) {
-            modifiedText = (<u>{listItem.text}</u>);
-        }
-
-        if (listItem.code) {
-            modifiedText = (<code className="bg-gray-100 rounded-md text-red-500">{listItem.text}</code>);
-        }
-
-        return modifiedText
-    }
-
-
-    const getContentFragment = (index, text, obj, type) => {
-        let modifiedText = text;
-
-        if (obj) {
-            if (obj.bold) {
-                modifiedText = (<b key={index}>{text}</b>);
-            }
-
-            if (obj.italic) {
-                modifiedText = (<em key={index}>{text}</em>);
-            }
-
-            if (obj.underline) {
-                modifiedText = (<u key={index}>{text}</u>);
-            }
-            if (obj.code) {
-                modifiedText = (<code className="bg-gray-100 rounded-md text-red-500" key={index}>{text}</code>);
-            }
-        }
-
-
-        switch (type) {
-            case 'bulleted-list':
-                return renderBulletedList(index, obj)
-            case 'numbered-list':
-                return renderOrdonedList(index, obj)
-            case 'heading-one':
-                return <h3 key={index} className="text-3xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
-            case 'heading-two':
-                return <h3 key={index} className="text-2xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
-            case 'heading-three':
-                return <h3 key={index} className="text-xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
-            case 'paragraph':
-                return <p key={index} className="mb-8">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</p>;
-            case 'heading-four':
-                return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
-            case 'image':
-                return (
-                    <img
-                        key={index}
-                        alt={obj.title}
-                        height={obj.height}
-                        width={obj.width}
-                        src={obj.src}
-                    />
-                );
-            default:
-                return modifiedText;
-        }
-    };
 
     return (
         <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
@@ -125,12 +40,28 @@ const PostDetail = ({post}) => {
 
                 </div>
                 <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-                {post.content.raw.children.map((typeObj, index) => {
-                    const children = typeObj.children.map((item, itemIndex) =>
-                    getContentFragment(itemIndex, item.text, item))
-
-                    return getContentFragment(index, children, typeObj, typeObj.type)
-                })}
+                <RichText content={post.content.raw} renderers={{
+                    h1: ({children}) => <h1 className="text-3xl font-semibold mb-4">{children}</h1>,
+                    h2: ({children}) => <h2 className="text-2xl font-semibold mb-4">{children}</h2>,
+                    h3: ({children}) => <h3 className="text-xl font-semibold mb-4">{children}</h3>,
+                    h4: ({children}) => <h4 className="text-lg font-semibold mb-4">{children}</h4>,
+                    h5: ({children}) => <h4 className="text-base font-semibold mb-4">{children}</h4>,
+                    p: ({children}) => <p className="mb-8">{children}</p>,
+                    code: ({children}) => <code className="bg-gray-100 rounded-md text-red-500">{children}</code>,
+                    ul: ({children}) => <ul class="list-disc ml-4">{children}</ul>,
+                    ol: ({children}) => <ul class="list-decimal ml-4">{children}</ul>,
+                    li: ({children}) => <li className="mb-4">{children}</li>,
+                    blockquote: ({children}) => (<div className="mb-4 border-l-4 border-gray-500"><blockquote className="ml-2 italic">{children}</blockquote></div>),
+                    a: ({children, href}) => {
+                        return (<Link href={href}>
+                            <a className="text-blue-500">{children}</a>
+                        </Link>)
+                    },
+                    code_block: ({children}) => {
+                        const code = children.props.content[0].text
+                        return <SyntaxHighlighter language="python" style={ocean}>{code}</SyntaxHighlighter>
+                    },
+                }}/>
             </div>
         </div>
     )
