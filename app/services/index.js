@@ -12,9 +12,9 @@ export const getPosts = async () => {
           bio
           name
           id
-          photo {
-            url
-          }
+            photo {
+                url
+            }
         }
         createdAt
         slug
@@ -34,8 +34,13 @@ export const getPosts = async () => {
     `
 
     const result = await request(graphqlAPI, query);
-
-    return result.postsConnection.edges;
+    const sortedResult = await result.postsConnection.edges.sort((a, b) => {
+        if (a.createdAt < b.createdAt) {
+            return 1
+        }
+        return -1
+    })
+    return sortedResult;
 };
 
 export const getPostsDetails = async (slug) => {
