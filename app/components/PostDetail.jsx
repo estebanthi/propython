@@ -59,7 +59,11 @@ const PostDetail = ({post}) => {
                     },
                     code_block: ({children}) => {
                         const code = children.props.content[0].text
-                        return <SyntaxHighlighter language="python" style={ocean}>{code}</SyntaxHighlighter>
+                        return <SyntaxHighlighter
+                            language="python"
+                            style={ocean}
+                            className="rounded-md mb-4"
+                        >{code}</SyntaxHighlighter>
                     },
                 }}/>
             </div>
