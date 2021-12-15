@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@graphcms/rich-text-react-renderer": "^0.3.2",
+    "@segment/snippet": "^4.15.3",
+    "analytics-node": "^6.0.0",
     "graphql": "^16.0.1",
     "graphql-request": "^3.6.1",
     "html-react-parser": "^1.4.0",
