@@ -231,7 +231,12 @@ export const getCategoryPost = async (slug) => {
     }
   `;
 
-    const result = await request(graphqlAPI, query, { slug });
-
-    return result.postsConnection.edges;
+    const result = await request(graphqlAPI, query, {slug});
+    const sortedResult = await result.postsConnection.edges.sort((a, b) => {
+        if (a.createdAt < b.createdAt) {
+            return 1
+        }
+        return -1
+    })
+    return sortedResult;
 };
