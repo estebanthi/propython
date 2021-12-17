@@ -4,6 +4,30 @@ import { RichText } from '@graphcms/rich-text-react-renderer';
 import Link from "next/link";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import {Switch} from "@material-ui/core";
+import Toggler from "./Toggler";
+
+
+
+
+const renderClass = (children, className) => {
+
+    switch (className) {
+        case "ToggleElem":
+            return (
+                <div >
+                    <Toggler children={children} />
+                </div>
+            )
+    }
+
+    return (
+        <div>
+            {className}
+        </div>
+    )
+
+}
 
 
 const PostDetail = ({post}) => {
@@ -54,6 +78,9 @@ const PostDetail = ({post}) => {
                             style={ocean}
                             className="rounded-md mb-4"
                         >{code}</SyntaxHighlighter>
+                    },
+                    class: ({children, className}) => {
+                        return renderClass(children, className)
                     },
                 }}/>
             </div>
