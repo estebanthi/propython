@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import {getPosts, getPostDetails, getPostsDetails} from "../../services";
 import {PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, Newsletter} from "../../components";
 
+import Head from 'next/head'
+
 
 var Analytics = require('analytics-node');
 var analytics = new Analytics(process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY);
@@ -18,6 +20,9 @@ const PostDetails = ({post}) => {
     }
     return (
         <div className="container mx-auto px-10 mb-8">
+            <Head>
+                <title>{post.title}</title>
+            </Head>
             <div className="grid grid-clos-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-8">
                     <PostDetail post={post}/>
