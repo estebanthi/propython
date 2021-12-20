@@ -82,6 +82,7 @@ const PostDetail = ({post}) => {
                     class: ({children, className}) => {
                         return renderClass(children, className)
                     },
+                    img: ({src}) => <img className="mb-4" src={src}></img>,
                 }}/>
             </div>
         </div>
