@@ -22,12 +22,14 @@ const RessourceCard = ({ressource}) => {
                     </h1>
                     <span className="mt-4">{ressource.description}</span>
                 </div>
-                <button onClick={handleDownload}
+                <Link href={{pathname: "/api/download", query: {id: ressource.associatedAsset.id}}}>
+                <button
                         type="button"
                         className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-0 cursor-pointer h-12 lg:ml-10 mt-4 lg:mt-0"
                     >
                         Télécharger
                 </button>
+                </Link>
             </div>
             <div className="hidden xl:contents">
                 <LinkedArticle post={ressource.associatedpost}/>
