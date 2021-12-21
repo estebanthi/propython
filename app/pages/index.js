@@ -2,6 +2,8 @@ import Head from 'next/head'
 import {PostCard, Categories, PostWidget, Newsletter} from "../components";
 import { getPosts } from "../services";
 import FeaturedPosts from "../sections/FeaturedPosts";
+import {Button} from "@material-ui/core";
+import Ressources from "../components/Ressources";
 
 
 export default function Home({ posts }) {
@@ -27,6 +29,7 @@ export default function Home({ posts }) {
                 <div className="lg:sticky relative top-8">
                     <PostWidget />
                     <Categories />
+                    <Ressources />
                     <Newsletter />
                 </div>
             </div>

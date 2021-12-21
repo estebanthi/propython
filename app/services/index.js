@@ -240,3 +240,39 @@ export const getCategoryPost = async (slug) => {
     })
     return sortedResult;
 };
+
+
+export const getRessources = async () => {
+    const query = gql`
+    query MyQuery {
+  ressources {
+    associatedAsset {
+      fileName
+      url
+      id
+    }
+    description
+    title
+    associatedpost {
+      createdAt
+      featuredImage {
+        url
+      }
+      title
+      slug
+    }
+  }
+}
+
+
+    `
+
+    const result = await request(graphqlAPI, query);
+    const sortedResult = await result.ressources.sort((a, b) => {
+        if (a.associatedpost.createdAt < b.associatedpost.createdAt) {
+            return 1
+        }
+        return -1
+    })
+    return sortedResult;
+};
