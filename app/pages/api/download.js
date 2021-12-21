@@ -9,7 +9,8 @@ const pipeline = promisify(stream.pipeline);
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export default async function asynchandler(req, res) {
-    console.log(graphqlAPI)
+    console.log(1)
+    console.log(process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT)
     const headerAuth = `Bearer ${process.env.GRAPHCMS_TOKEN}`
     console.log(headerAuth)
     const graphQLClient = new GraphQLClient((graphqlAPI), {
