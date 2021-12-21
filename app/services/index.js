@@ -1,4 +1,5 @@
 import { request, gql } from "graphql-request";
+import axios from "axios";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
@@ -276,3 +277,9 @@ export const getRessources = async () => {
     })
     return sortedResult;
 };
+
+
+export const submitDownload = async (id) => {
+    const result = await axios.get("/api/download", {params: {id: id}})
+    return result
+}
