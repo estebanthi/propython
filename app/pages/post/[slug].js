@@ -12,14 +12,6 @@ var analytics = new Analytics(process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY);
 
 const PostDetails = ({post}) => {
 
-    analytics.track({
-        anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
-        event: 'Post viewed',
-        properties: {
-            post: post.slug
-        }
-    });
-
     const router = useRouter();
 
     if(router.isFallback) {

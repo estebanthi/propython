@@ -61,6 +61,17 @@ const PostCard = ({post}) => {
                       </span>
                 </Link>
             </div>
+            <button onClick={() => {
+                analytics.track({
+                    anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
+                    event: 'Post viewed',
+                    properties: {
+                        post: post.slug
+                    }
+                })
+            }}>
+                click
+            </button>
         </div>
     )
 }
