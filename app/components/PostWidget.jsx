@@ -38,7 +38,15 @@ const PostWidget = ({ categories, slug }) => {
                         {moment(post.createdAt).format("DD MMM, YYYY")}
                         </p>
                         <Link href={`/post/${post.slug}`} className="text-md" key={post.title}>
-                            {post.title}
+                            <span onClick={() => {
+                                analytics.track({
+                                    anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
+                                    event: 'Post viewed',
+                                    properties: {
+                                        post: post.slug
+                                    }
+                                })
+                            }} className="cursor-pointer">{post.title}</span>
                         </Link>
                     </div>
                 </div>
