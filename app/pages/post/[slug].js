@@ -12,6 +12,13 @@ var analytics = new Analytics(process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY);
 
 const PostDetails = ({post}) => {
 
+    analytics.track({
+        anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
+        event: 'Post viewed',
+        properties: {
+            post: post.slug
+        }
+    });
 
     const router = useRouter();
 
@@ -46,14 +53,6 @@ export default PostDetails
 
 export async function getStaticProps({params}) {
     const data = await getPostsDetails(params.slug)
-
-    analytics.track({
-        anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
-        event: 'Post viewed',
-        properties: {
-            post: params.slug
-        }
-    });
 
     return {
         props: { post: data }
