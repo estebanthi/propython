@@ -32,6 +32,17 @@ const renderClass = (children, className) => {
 
 const PostDetail = ({post}) => {
 
+    const getColors = () => {
+        switch (post.difficulty) {
+            case "Facile":
+                return "border-green-700 text-green-700"
+            case "Moyen":
+                return "border-orange-500 text-orange-500"
+            case "Difficile":
+                return "border-red-600 text-red-600"
+        }
+    }
+
     return (
         <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
             <div className="relative overflow-hidden shadow-md mb-6">
@@ -51,6 +62,7 @@ const PostDetail = ({post}) => {
                         {moment(post.createdAt).format("DD MMM, YYYY")}
                     </span>
                     </div>
+                    {post.difficulty ? <span className={"ml-10 border-2 px-2 rounded-3xl "+getColors()}>{post.difficulty}</span> : ""}
 
                 </div>
                 <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>

@@ -21,6 +21,8 @@ export const getPosts = async () => {
         slug
         title
         excerpt
+        difficulty
+        prerequis
         featuredImage {
           url
         }
@@ -61,6 +63,8 @@ export const getPostsDetails = async (slug) => {
         slug
         title
         excerpt
+        difficulty
+        prerequis
         featuredImage {
           url
         }
@@ -219,6 +223,8 @@ export const getCategoryPost = async (slug) => {
             slug
             title
             excerpt
+            difficulty
+            prerequis
             featuredImage {
               url
             }
