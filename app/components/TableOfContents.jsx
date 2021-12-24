@@ -72,7 +72,7 @@ const TableOfContents = () => {
                     </ListItemButton>
                 </ListItem>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                <div className="flex flex-wrap">
+                <div className="flex flex-col ml-8">
                 {nestedHeadings.map((heading) => {
                     return (
                         <div>
