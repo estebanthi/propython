@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { useRouter } from "next/router";
 
 import {getPosts, getPostDetails, getPostsDetails} from "../../services";
 import {PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, Newsletter} from "../../components";
 
 import Head from 'next/head'
+import TableOfContents from "../../components/TableOfContents";
 
 
 var Analytics = require('analytics-node');

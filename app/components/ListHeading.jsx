@@ -1,0 +1,49 @@
+import {IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {ListItem, Collapse} from "@material-ui/core";
+import {useState} from "react";
+import {ExpandLess, ExpandMore} from "@material-ui/icons";
+import CircleIcon from '@mui/icons-material/Circle';
+import Link from "next/link"
+
+
+const ListHeading = (props) => {
+
+    const [open, setOpen] = useState(false)
+
+    const handleClick = () => {
+        setOpen(!open)
+    }
+
+    const getStyle = () => {
+
+        switch (props.heading.type) {
+            case 2:
+                return "font-bold text-xl"
+
+        }
+
+    }
+
+    if (props.heading.title == "Le mot de la fin") {
+        return (
+            ""
+        )
+    }
+
+    return (
+        <div>
+                <ListItem>
+                   <Link href={`#${props.heading.id}`}>
+                        <ListItemButton sx={{pl: props.pl}} onClick={() => handleClick(props.heading.id)}>
+                            <span className={getStyle()}>{props.heading.title}</span>
+                        </ListItemButton>
+                   </Link>
+                </ListItem>
+                {props.heading.items.length ? props.heading.items.map((child) =>  <ListHeading heading={child} pl={props.pl+4}/>) : ""}
+        </div>
+    )
+
+}
+
+
+export default ListHeading

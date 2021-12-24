@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import moment from "moment";
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import Link from "next/link";
@@ -6,6 +6,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import {Switch} from "@material-ui/core";
 import Toggler from "./Toggler";
+import TableOfContents from "./TableOfContents";
 
 
 
@@ -17,6 +18,13 @@ const renderClass = (children, className) => {
             return (
                 <div >
                     <Toggler children={children} />
+                </div>
+            )
+
+        case "TableOfContents":
+            return (
+                <div>
+                    <TableOfContents />
                 </div>
             )
     }
@@ -32,6 +40,8 @@ const renderClass = (children, className) => {
 
 const PostDetail = ({post}) => {
 
+    let counter = 0
+
     const getColors = () => {
         switch (post.difficulty) {
             case "Facile":
@@ -41,6 +51,26 @@ const PostDetail = ({post}) => {
             case "Difficile":
                 return "border-red-600 text-red-600"
         }
+    }
+
+    const renderHeading = (children, type) => {
+        let result
+        switch (type) {
+            case 2:
+                result = <h2 className="text-3xl font-semibold mb-4" id={counter}>{children}</h2>
+                break
+            case 3:
+                result = <h3 className="text-2xl font-semibold mb-4" id={counter}>{children}</h3>
+                break
+            case 4:
+                result = <h4 className="text-xl font-semibold mb-4" id={counter}>{children}</h4>
+                break
+            case 5:
+                result = <h5 className="text-lg font-semibold mb-4" id={counter}>{children}</h5>
+                break
+        }
+        counter += 1
+        return result
     }
 
     return (
@@ -68,10 +98,11 @@ const PostDetail = ({post}) => {
                 <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
                 <RichText content={post.content.raw} renderers={{
                     h1: ({children}) => <h1 className="text-3xl font-semibold mb-4">{children}</h1>,
-                    h2: ({children}) => <h2 className="text-2xl font-semibold mb-4">{children}</h2>,
-                    h3: ({children}) => <h3 className="text-xl font-semibold mb-4">{children}</h3>,
-                    h4: ({children}) => <h4 className="text-lg font-semibold mb-4">{children}</h4>,
-                    h5: ({children}) => <h4 className="text-base font-semibold mb-4">{children}</h4>,
+                    h2: ({children}) => renderHeading(children, 2)
+                    ,
+                    h3: ({children}) => renderHeading(children, 3),
+                    h4: ({children}) => renderHeading(children, 4),
+                    h5: ({children}) => renderHeading(children, 5),
                     p: ({children}) => <p className="mb-8">{children}</p>,
                     code: ({children}) => <code className="bg-gray-100 rounded-md text-red-500">{children}</code>,
                     ul: ({children}) => <ul class="list-disc ml-4">{children}</ul>,

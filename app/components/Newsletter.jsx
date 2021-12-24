@@ -35,7 +35,7 @@ const Newsletter = () => {
 
     return (
         <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-            <h3 className="text-xl mb-8 font-semibold border-b pb-4">Newsletter</h3>
+            <h1 className="text-xl mb-8 font-semibold border-b pb-4">Newsletter</h1>
             <div className="gap-4 mb-4">
                 <input
                     type="text" ref={emailEl}
