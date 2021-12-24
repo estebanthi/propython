@@ -63,7 +63,7 @@ const TableOfContents = () => {
     };
 
     return (
-        <div className="hidden lg:flex mb-8 -ml-8">
+        <div className="hidden lg:flex mb-8">
             <List>
                 <ListItem>
                     <ListItemButton onClick={handleClick}>
