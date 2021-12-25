@@ -63,11 +63,11 @@ const TableOfContents = () => {
     };
 
     return (
-        <div className="hidden lg:flex mb-8 -ml-8">
+        <div className="hidden lg:flex mb-8 -ml-8 border-2 ml-8 mr-8 rounded-lg border-pink-500">
             <List>
                 <ListItem>
                     <ListItemButton onClick={handleClick}>
-                        <span className="text-3xl font-bold mr-5 text-blue-700">Table des matières</span>
+                        <span className="text-xl font-bold mr-5 text-pink-700">Table des Matières</span>
                         {open ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                 </ListItem>

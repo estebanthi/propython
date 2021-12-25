@@ -18,17 +18,19 @@ const ListHeading = (props) => {
 
         switch (props.heading.type) {
             case 2:
-                return "font-bold text-xl"
+                return "font-bold text-xl text-blue-900"
+
+            case 3:
+                return "text-lg text-blue-700"
+
+            case 4:
+                return "text-pink-500"
 
         }
 
     }
 
-    if (props.heading.title == "Le mot de la fin") {
-        return (
-            ""
-        )
-    }
+
 
     return (
         <div>
