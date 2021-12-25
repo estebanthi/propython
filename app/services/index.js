@@ -289,3 +289,16 @@ export const submitDownload = async (id) => {
     const result = await axios.get("/api/download", {params: {id: id}})
     return result
 }
+
+
+export const submitMessage = async (obj) => {
+    const result = await fetch("/api/messages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+    })
+
+    return result.json();
+}

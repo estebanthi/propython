@@ -4,6 +4,7 @@ import { getPosts } from "../services";
 import FeaturedPosts from "../sections/FeaturedPosts";
 import {Button} from "@material-ui/core";
 import Ressources from "../components/Ressources";
+import Contact from "../components/Contact";
 
 
 export default function Home({ posts }) {
@@ -31,6 +32,7 @@ export default function Home({ posts }) {
                     <Categories />
                     <Ressources />
                     <Newsletter />
+                    <Contact />
                 </div>
             </div>
         </div>
