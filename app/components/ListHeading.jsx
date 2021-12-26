@@ -41,7 +41,7 @@ const ListHeading = (props) => {
                             <span className={getStyle()}>{props.heading.title}</span>
 
                         </ListItemButton>
-                       </div>
+
                    </Link>
                 </ListItem>
                 {props.heading.items.length ? props.heading.items.map((child) =>  <ListHeading heading={child} pl={props.pl+4}/>) : ""}
