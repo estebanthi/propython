@@ -14,15 +14,15 @@ const ContactForm = () => {
         setError(false);
 
         const {value: name} = nameEl.current;
-        const {value: mail} = mailEl.current;
+        const {value: email} = mailEl.current;
         const {value: message} = messageEl.current;
 
-        if (!message || !name || !mail) {
+        if (!message || !name || !email) {
             setError(true);
             return;
         }
 
-        const messageObj = {name, mail, message};
+        const messageObj = {name, email, message};
 
         submitMessage(messageObj)
             .then((res) => {
@@ -56,8 +56,8 @@ const ContactForm = () => {
                       placeholder="Message"
                       name="message"
             />
-            {error && <div className="mb-2"><span className="text-red-700">Veuillez remplir tous les champs.</span></div>}
-            {success && <div className="mb-2"><span className="text-green-700">Bien reçu ! Vous recevrez une réponse par mail prochainement.</span></div>}
+            {error && <div className="mb-2"><span className="text-xs text-red-500">Veuillez remplir tous les champs.</span></div>}
+            {success && <div className="mb-2"><span className="text-xl text-green-500 font-semibold">Bien reçu ! Vous recevrez une réponse par mail prochainement.</span></div>}
             <div className="flex justify-center">
                 <button
                     onClick={handleSubmission}

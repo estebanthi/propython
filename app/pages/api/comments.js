@@ -15,9 +15,41 @@ export default async function asynchandler(req, res) {
     },
   });
 
+  const findUserQuery = gql`
+  query MyQuery($email: String!) {
+  proPythonUser(where: {email: $email}) {
+    id
+  }
+}
+  `
+
+  const userFound = await graphQLClient.request(findUserQuery, {email: req.body.email})
+
+  if (!userFound.proPythonUser) {
+    const createUserQuery = gql `
+    mutation CreateProPythonUser($name: String!, $email: String!) {
+      createProPythonUser(data: {name: $name, email: $email}) { id }
+    }
+    `
+    const userCreated = await graphQLClient.request(createUserQuery, {name: req.body.name, email: req.body.email})
+
+    const publishUser = gql `
+    mutation query($email: String!) {
+  publishProPythonUser(where: {email: $email}) {
+    id
+  }
+}
+
+        `
+    const contentPublished = await graphQLClient.request(publishUser, {email: req.body.email})
+  }
+
+
+
+
   const query = gql`
-    mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
-      createComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}}) { id }
+    mutation CreateComment($email: String!, $comment: String!, $slug: String!) {
+      createComment(data: {proPythonUser: {connect: {email: $email}}, comment: $comment, post: {connect: {slug: $slug}}}) { id }
     }
   `;
 
