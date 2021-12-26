@@ -36,8 +36,8 @@ const ListHeading = (props) => {
         <div>
                 <ListItem>
                    <Link href={`#${props.heading.id}`}>
-                       <div className={"pl-"+props.pl}>
-                        <ListItemButton onClick={() => handleClick(props.heading.id)}>
+
+                        <ListItemButton sx={{pl: props.pl}} onClick={() => handleClick(props.heading.id)}>
                             <span className={getStyle()}>{props.heading.title}</span>
 
                         </ListItemButton>
