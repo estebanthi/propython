@@ -195,7 +195,9 @@ export const getComments = async (slug) => {
     const query = gql`
     query GetComments($slug: String!) {
     comments(where: {post: {slug: $slug}}) {
-    name
+    proPythonUser {
+        name
+    }
     createdAt
     comment}
     }

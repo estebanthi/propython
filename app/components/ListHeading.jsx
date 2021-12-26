@@ -36,9 +36,12 @@ const ListHeading = (props) => {
         <div>
                 <ListItem>
                    <Link href={`#${props.heading.id}`}>
-                        <ListItemButton sx={{pl: props.pl}} onClick={() => handleClick(props.heading.id)}>
+                       <div className={"pl-"+props.pl}>
+                        <ListItemButton onClick={() => handleClick(props.heading.id)}>
                             <span className={getStyle()}>{props.heading.title}</span>
+
                         </ListItemButton>
+                       </div>
                    </Link>
                 </ListItem>
                 {props.heading.items.length ? props.heading.items.map((child) =>  <ListHeading heading={child} pl={props.pl+4}/>) : ""}

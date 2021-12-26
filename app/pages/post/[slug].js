@@ -6,6 +6,8 @@ import {PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Load
 
 import Head from 'next/head'
 import TableOfContents from "../../components/TableOfContents";
+import ContactForm from "../../components/ContactForm";
+import Contact from "../../components/Contact";
 
 
 var Analytics = require('analytics-node');
@@ -34,6 +36,7 @@ const PostDetails = ({post}) => {
                         <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)}/>
                         <Categories />
                         <Newsletter />
+                        <Contact />
                     </div>
                 </div>
 

@@ -25,7 +25,7 @@ const Comments = ({slug}) => {
                         <div key={comment.createdAt} className="border-b border-gray-100 mb-4 pb-4">
                             <p className="mb-4">
                                 <span className="font-semibold">
-                                    {comment.name}
+                                    {comment.proPythonUser.name}
                                 </span>
                                 {" "}
                                 le
