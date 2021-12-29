@@ -11,13 +11,9 @@ const LoginForm = () => {
 
     }
 
-    const handleCreateAccountSubmission = () => {
-
-    }
-
     return (
-        <div className="flex justify-around">
-        <div className="flex flex-col bg-white w-auto rounded-md py-4 px-10">
+        <div className="flex lg:justify-around justify-center flex-col lg:flex-row">
+        <div className="flex flex-col bg-white w-auto rounded-md py-4 px-10 lg:mx-0 mx-4">
         <div className="flex flex-col items-center">
            <h1 className="text-xl font-bold border-b">Se Connecter</h1>
             <div className="my-4 flex flex-col">
@@ -64,14 +60,16 @@ const LoginForm = () => {
             </div>
         </div>
             <div className="w-auto ">
-                <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 mx-10">
+                <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 lg:mx-10 mx-4">
                     <h1 className="text-lg font-bold border-b">Pas encore de compte ?</h1>
+                    <Link href="/create-account">
                     <button
-                        type="button" onClick={handleCreateAccountSubmission}
+                        type="button"
                         className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
                     >
                         Créer un compte
                     </button>
+                    </Link>
                 </div>
             </div>
         </div>
