@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 import Link from "next/link";
 import {getCategories} from "../services";
+import {AccountCircle} from "@material-ui/icons";
 
 const Header = () => {
 
@@ -21,6 +22,11 @@ const Header = () => {
                         <span className="cursor-pointer font-bold text-4xl text-white">
                             ProPython
                         </span>
+                    </Link>
+                </div>
+                <div className="md:hidden">
+                    <Link href="/login">
+                        <AccountCircle className="text-white"/>
                     </Link>
                 </div>
                 <div className="hidden md:flex items-center justify-end h-20">
