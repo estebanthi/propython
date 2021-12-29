@@ -1,11 +1,12 @@
 import {getRessources} from "../services";
 import Head from "next/head";
 import FeaturedPosts from "../sections/FeaturedPosts";
-import {Categories, Newsletter, PostCard, PostWidget} from "../components";
+import {Categories, Layout, Newsletter, PostCard, PostWidget} from "../components";
 import Ressources from "../components/Ressources";
 import RessourceCard from "../components/RessourceCard";
 import Link from "next/link";
 import React from "react";
+import Home from "./index";
 
 const RessourcesPage = ({ressources}) => {
     return (
@@ -33,3 +34,12 @@ export async function getStaticProps() {
 export default RessourcesPage
 
 
+RessourcesPage.getLayout = function getLayout(page) {
+
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
+
+}

@@ -1,10 +1,12 @@
 import Head from 'next/head'
-import {PostCard, Categories, PostWidget, Newsletter} from "../components";
+import {PostCard, Categories, PostWidget, Newsletter, Layout} from "../components";
 import { getPosts } from "../services";
 import FeaturedPosts from "../sections/FeaturedPosts";
 import {Button} from "@material-ui/core";
 import Ressources from "../components/Ressources";
 import Contact from "../components/Contact";
+import React from "react";
+import PostDetails from "./post/[slug]";
 
 
 export default function Home({ posts }) {
@@ -48,4 +50,15 @@ export async function getStaticProps() {
     return {
         props: { posts }
     }
+}
+
+
+Home.getLayout = function getLayout(page) {
+
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
+
 }

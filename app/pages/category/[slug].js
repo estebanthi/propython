@@ -2,7 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { getCategories, getCategoryPost } from '../../services';
-import { PostCard, Categories, Loader } from '../../components';
+import {PostCard, Categories, Loader, Layout} from '../../components';
+import Home from "../index";
 
 const CategoryPost = ({ posts }) => {
     const router = useRouter();
@@ -46,4 +47,15 @@ export async function getStaticPaths() {
         paths: categories.map(({ slug }) => ({ params: { slug } })),
         fallback: true,
     };
+}
+
+
+CategoryPost.getLayout = function getLayout(page) {
+
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
+
 }

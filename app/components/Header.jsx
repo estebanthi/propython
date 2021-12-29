@@ -14,7 +14,7 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="container mx-auto px-10 mb-8 ">
+        <div className="container mx-auto px-10 mb-8">
             <div className="border-b w-full inline-block border-blue-400 py-8 flex items-center content-center justify-between">
                 <div>
                     <Link href="/">
@@ -38,6 +38,14 @@ const Header = () => {
                         <Link href="/ressources">
                             <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Ressources
+                            </span>
+                        </Link>
+                    </div>
+
+                    <div>
+                        <Link href="/login">
+                            <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
+                                Se connecter / Créer un compte
                             </span>
                         </Link>
                     </div>

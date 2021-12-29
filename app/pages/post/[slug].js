@@ -2,7 +2,17 @@ import React, {useState} from "react";
 import { useRouter } from "next/router";
 
 import {getPosts, getPostDetails, getPostsDetails} from "../../services";
-import {PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader, Newsletter} from "../../components";
+import {
+    PostDetail,
+    Categories,
+    PostWidget,
+    Author,
+    Comments,
+    CommentsForm,
+    Loader,
+    Newsletter,
+    Layout
+} from "../../components";
 
 import Head from 'next/head'
 import TableOfContents from "../../components/TableOfContents";
@@ -62,4 +72,15 @@ export async function getStaticPaths() {
         paths: posts.map(({node: {slug }}) => ({params: {slug}})),
         fallback: true,
     }
+}
+
+
+PostDetails.getLayout = function getLayout(page) {
+
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
+
 }
