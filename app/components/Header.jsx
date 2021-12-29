@@ -3,6 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
+import {SignInButton} from "@clerk/nextjs";
 
 const Header = () => {
 
@@ -49,11 +50,12 @@ const Header = () => {
                     </div>
 
                     <div>
-                        <Link href="/login">
-                            <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
+                        <SignInButton modal>
+                            <button className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
-                            </span>
-                        </Link>
+                            </button>
+                        </SignInButton>
+
                     </div>
 
                 </div>

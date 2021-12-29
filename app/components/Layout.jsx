@@ -1,5 +1,6 @@
 import React from "react"
 import { Header } from "./";
+import {ClerkProvider, SignInButton} from "@clerk/nextjs";
 
 
 
