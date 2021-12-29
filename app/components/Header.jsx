@@ -3,11 +3,14 @@ import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
-import {SignInButton} from "@clerk/nextjs";
+import {SignedOut, SignInButton, SignedIn} from "@clerk/nextjs";
+import { useClerk } from "@clerk/clerk-react";
+import SignOutButton from "./SignOutButton";
 
 const Header = () => {
 
     const [categories, setCategories] = useState([]);
+
 
     useEffect(() => {
         getCategories().then((newCategories) => {
@@ -26,9 +29,9 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="md:hidden">
-                    <Link href="/login">
+                    <SignInButton modal>
                         <AccountCircle className="text-white"/>
-                    </Link>
+                    </SignInButton>
                 </div>
                 <div className="hidden md:flex items-center justify-end h-20">
 
@@ -50,12 +53,18 @@ const Header = () => {
                     </div>
 
                     <div>
+                        <SignedOut>
                         <SignInButton modal>
                             <button className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
                             </button>
                         </SignInButton>
-
+                        </SignedOut>
+                        <SignedIn>
+                            <div className="md:float-right mt-2 align-middle ml-4 ">
+                            <SignOutButton />
+                            </div>
+                        </SignedIn>
                     </div>
 
                 </div>
@@ -63,5 +72,6 @@ const Header = () => {
         </div>
     )
 }
+
 
 export default Header
