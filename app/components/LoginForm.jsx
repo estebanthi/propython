@@ -64,7 +64,7 @@ const LoginForm = () => {
             </div>
         </div>
             <div className="w-auto ">
-                <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 mx-4">
+                <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 mx-10">
                     <h1 className="text-lg font-bold border-b">Pas encore de compte ?</h1>
                     <button
                         type="button" onClick={handleCreateAccountSubmission}
