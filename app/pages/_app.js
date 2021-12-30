@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
     const isPublicPage = publicPages.includes(pathname);
 
     const getLayout = Component.getLayout || ((page) => page)
-    return (<ClerkProvider>
+    return (<ClerkProvider frontendApi="clerk.propython.fr">
         {isPublicPage ? (
             getLayout(<Component {...pageProps} />)
         ) : (
