@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import Link from "next/link"
 
 
-const LoginForm = () => {
+const SignInForm = () => {
 
     const emailEl = useRef()
     const passwordEl = useRef()
@@ -62,7 +62,7 @@ const LoginForm = () => {
             <div className="w-auto ">
                 <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 lg:mx-10 mx-4">
                     <h1 className="text-lg font-bold border-b">Pas encore de compte ?</h1>
-                    <Link href="/create-account">
+                    <Link href="/sign-up">
                     <button
                         type="button"
                         className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
@@ -78,4 +78,4 @@ const LoginForm = () => {
 }
 
 
-export default LoginForm
+export default SignInForm

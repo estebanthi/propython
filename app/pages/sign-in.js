@@ -1,4 +1,4 @@
-import LoginForm from "../components/LoginForm";
+import SignInForm from "../components/SignInForm";
 import {Layout} from "../components";
 import React from "react";
 import Home from "./index";
@@ -9,7 +9,7 @@ const LoginPage = () => {
 
     return (
         <div className="flex justify-center mt-20">
-            <LoginForm />
+            <SignInForm />
         </div>
     )
 
