@@ -3,9 +3,12 @@ import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
+<<<<<<< HEAD
 import {SignedOut, SignInButton, SignedIn} from "@clerk/nextjs";
 import { useClerk } from "@clerk/clerk-react";
 import SignOutButton from "./SignOutButton";
+=======
+>>>>>>> parent of c452b24 (clerk integration)
 
 const Header = () => {
 
@@ -53,6 +56,7 @@ const Header = () => {
                     </div>
 
                     <div>
+<<<<<<< HEAD
                         <SignedOut>
                         <SignInButton modal>
                             <button className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
@@ -65,6 +69,13 @@ const Header = () => {
                             <SignOutButton />
                             </div>
                         </SignedIn>
+=======
+                        <Link href="/login">
+                            <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
+                                Se connecter / Créer un compte
+                            </span>
+                        </Link>
+>>>>>>> parent of c452b24 (clerk integration)
                     </div>
 
                 </div>

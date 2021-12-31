@@ -6,7 +6,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@clerk/nextjs": "^2.4.4",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@graphcms/rich-text-react-renderer": "^0.3.2",

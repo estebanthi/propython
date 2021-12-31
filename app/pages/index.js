@@ -7,7 +7,6 @@ import Ressources from "../components/Ressources";
 import Contact from "../components/Contact";
 import React from "react";
 import PostDetails from "./post/[slug]";
-import {SignInButton} from "@clerk/nextjs";
 
 
 export default function Home({ posts }) {
