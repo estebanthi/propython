@@ -4,16 +4,19 @@ import Link from "next/link";
 import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {SignedOut, SignInButton, SignedIn} from "@clerk/nextjs";
 import { useClerk } from "@clerk/clerk-react";
 import SignOutButton from "./SignOutButton";
 =======
 >>>>>>> parent of c452b24 (clerk integration)
+=======
+import {SignInButton} from "@clerk/nextjs";
+>>>>>>> parent of ca2e765 (SignOut)
 
 const Header = () => {
 
     const [categories, setCategories] = useState([]);
-
 
     useEffect(() => {
         getCategories().then((newCategories) => {
@@ -32,9 +35,9 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="md:hidden">
-                    <SignInButton modal>
+                    <Link href="/login">
                         <AccountCircle className="text-white"/>
-                    </SignInButton>
+                    </Link>
                 </div>
                 <div className="hidden md:flex items-center justify-end h-20">
 
@@ -57,12 +60,16 @@ const Header = () => {
 
                     <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <SignedOut>
+=======
+>>>>>>> parent of ca2e765 (SignOut)
                         <SignInButton modal>
                             <button className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
                             </button>
                         </SignInButton>
+<<<<<<< HEAD
                         </SignedOut>
                         <SignedIn>
                             <div className="md:float-right mt-2 align-middle ml-4 ">
@@ -76,6 +83,9 @@ const Header = () => {
                             </span>
                         </Link>
 >>>>>>> parent of c452b24 (clerk integration)
+=======
+
+>>>>>>> parent of ca2e765 (SignOut)
                     </div>
 
                 </div>
@@ -83,6 +93,5 @@ const Header = () => {
         </div>
     )
 }
-
 
 export default Header
