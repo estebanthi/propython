@@ -1,24 +1,21 @@
-import SignInForm from "../components/SignInForm";
-import {Layout} from "../components";
 import React from "react";
-import Home from "./index";
 import NoHeaderLayout from "../components/NoHeaderLayout";
-import CreateAccountForm from "../components/CreateAccountForm";
+import SignUpForm from "../components/SignUpForm";
 
 
-const CreateAccountPage = () => {
+const SignUpPage = () => {
 
     return (
-        <div className="flex justify-center mt-20">
-            <CreateAccountForm />
+        <div>
+            <SignUpForm />
         </div>
     )
 
 }
 
-export default CreateAccountPage
+export default SignUpPage
 
-CreateAccountPage.getLayout = function getLayout(page) {
+SignUpPage.getLayout = function getLayout(page) {
 
     return (
         <NoHeaderLayout>

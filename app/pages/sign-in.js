@@ -5,7 +5,7 @@ import Home from "./index";
 import NoHeaderLayout from "../components/NoHeaderLayout";
 
 
-const LoginPage = () => {
+const SignInPage = () => {
 
     return (
         <div className="flex justify-center mt-20">
@@ -15,9 +15,9 @@ const LoginPage = () => {
 
 }
 
-export default LoginPage
+export default SignInPage
 
-LoginPage.getLayout = function getLayout(page) {
+SignInPage.getLayout = function getLayout(page) {
 
     return (
         <NoHeaderLayout>
