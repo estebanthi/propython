@@ -1,6 +1,6 @@
 import React from "react";
-import NoHeaderLayout from "../components/NoHeaderLayout";
-import SignUpForm from "../components/SignUpForm";
+import NoHeaderLayout from "../../components/NoHeaderLayout";
+import SignUpForm from "../../components/SignUpForm";
 
 
 const SignUpPage = () => {

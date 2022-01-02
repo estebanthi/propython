@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
+import {signIn} from "next-auth/react";
 
 
 const SignUpForm = () => {
@@ -66,7 +67,7 @@ const SignUpForm = () => {
         }
 
         setSuccess(true)
-        router.push("/")
+        await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
 
     }
 

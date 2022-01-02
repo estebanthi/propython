@@ -23,7 +23,7 @@ export default async function asynchandler(req, res) {
     const createQueryResult = await graphQLClient.request(query, {
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: hashedPassword
     });
 
 

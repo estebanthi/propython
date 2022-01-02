@@ -3,11 +3,13 @@ import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
+import {useSession} from "next-auth/react";
 
 
 const Header = () => {
 
     const [categories, setCategories] = useState([]);
+    const { data: session, status } = useSession()
 
     useEffect(() => {
         getCategories().then((newCategories) => {
@@ -26,7 +28,7 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="md:hidden">
-                    <Link href="/sign-in">
+                    <Link href="/auth/sign-in">
                         <AccountCircle className="text-white"/>
                     </Link>
                 </div>
@@ -50,7 +52,7 @@ const Header = () => {
                     </div>
 
                     <div>
-                        <Link href="/sign-in">
+                        <Link href="/auth/sign-in">
                             <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
                             </span>
