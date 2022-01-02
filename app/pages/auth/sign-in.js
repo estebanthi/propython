@@ -3,22 +3,22 @@ import React from "react";
 import NoHeaderLayout from "../../components/NoHeaderLayout";
 
 
-const SignInPage = () => {
+const SignInPage = (props) => {
 
     return (
         <div className="flex justify-center mt-20">
-            <SignInForm error={null}/>
+            <span>Hello</span>
         </div>
     )
 
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({query}) {
 
 
     return {
         props: {
-            error: null
+            error: query.error || null
         }
     }
 }
