@@ -6,7 +6,7 @@ import SignUpForm from "../../components/SignUpForm";
 const SignUpPage = () => {
 
     return (
-        <div>
+        <div className="mb-20">
             <SignUpForm />
         </div>
     )

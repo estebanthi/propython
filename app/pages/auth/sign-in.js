@@ -6,7 +6,7 @@ import NoHeaderLayout from "../../components/NoHeaderLayout";
 const SignInPage = () => {
 
     return (
-        <div className="flex justify-center mt-20">
+        <div className="flex justify-center mb-20">
             <SignInForm/>
         </div>
     )
