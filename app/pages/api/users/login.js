@@ -17,6 +17,7 @@ export default async function asynchandler(req, res) {
     password
     email
     username
+    isPremium
   }
 }
   `;

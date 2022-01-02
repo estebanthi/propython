@@ -18,12 +18,6 @@ export default NextAuth({
                 password: {  label: "Mot de passe", type: "password" }
             },
             async authorize(credentials, req) {
-                // You need to provide your own logic here that takes the credentials
-                // submitted and returns either a object representing a user or value
-                // that is false/null if the credentials are invalid.
-                // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-                // You can also use the `req` object to obtain additional parameters
-                // (i.e., the request IP address)
 
                 const res = await axios.post((process.env.VERCEL_URL || process.env.LOCAL_URL)+"/api/users/login", {email: credentials.email, password:credentials.password})
                 const user = res.data.user
@@ -50,6 +44,7 @@ export default NextAuth({
             if (user)
             {
                 token.username = user.username
+                token.isPremium = user.isPremium
             }
             return token
         },
@@ -59,6 +54,7 @@ export default NextAuth({
                 session.user = {
                     username: token.username,
                     email: token.email,
+                    isPremium: token.isPremium,
                     id: token.sub
                 }
             }
