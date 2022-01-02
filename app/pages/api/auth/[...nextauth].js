@@ -62,9 +62,9 @@ export default NextAuth({
         },
         redirect({ url, baseUrl   }) {
             console.log(url, baseUrl)
-            if (url.startsWith(baseUrl)) return url
+            if (url.startsWith(baseUrl)) return url.replace(baseUrl, process.env.BASE_URL)
             // Allows relative callback URLs
-            else if (url.startsWith("/")) return new URL(url, baseUrl).toString()
+            else if (url.startsWith("/")) return new URL(url, process.env.BASE_URL).toString()
             return baseUrl
         }
     }
