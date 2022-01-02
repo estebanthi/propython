@@ -5,6 +5,10 @@ import {getCategories} from "../services";
 import {AccountCircle} from "@material-ui/icons";
 import {useSession} from "next-auth/react";
 
+import {signOut} from "next-auth/react";
+import {Logout} from "@mui/icons-material";
+
+
 
 const Header = () => {
 
@@ -30,9 +34,9 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="md:hidden">
-                    <Link href="/auth/sign-in">
+                    {status != "authenticated" ? <Link href="/auth/sign-in">
                         <AccountCircle className="text-white"/>
-                    </Link>
+                    </Link> : <Logout className="text-white" onClick={() => signOut()}/>}
                 </div>
                 <div className="hidden md:flex items-center justify-end h-20">
 
@@ -54,11 +58,14 @@ const Header = () => {
                     </div>
 
                     <div>
-                        <Link href="/auth/sign-in">
+                        {status != "authenticated" ? <Link href="/auth/sign-in">
                             <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
                             </span>
-                        </Link>
+                        </Link> : <div className="flex justify-center flex-col text-white font-semibold ml-4">
+                            <span >Connecté en tant que {<span className="text-yellow-400">{session.user.username}</span>}</span>
+                            <button onClick={() => signOut()} className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 font-semibold cursor-pointer border-2 p-2 ">Se déconnecter</button></div>}
+
                     </div>
 
                 </div>

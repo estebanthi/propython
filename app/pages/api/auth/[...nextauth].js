@@ -25,7 +25,7 @@ export default NextAuth({
                 // You can also use the `req` object to obtain additional parameters
                 // (i.e., the request IP address)
 
-                const res = await axios.post(process.env.NEXTAUTH_URL+"/api/users/login", {email: credentials.email, password:credentials.password})
+                const res = await axios.post((process.env.VERCEL_URL || process.env.LOCAL_URL)+"/api/users/login", {email: credentials.email, password:credentials.password})
                 const user = res.data.user
                 // If no error and we have user data, return it
                 if (user) {
