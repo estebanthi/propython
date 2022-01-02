@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link"
 import axios from "axios";
 import {signIn} from "next-auth/react";
+import {useRouter} from "next/router";
 
 
 const SignInForm = (props) => {
@@ -13,11 +14,15 @@ const SignInForm = (props) => {
     const [allFieldsRequiredError, setAllFieldsRequiredError] = useState(false)
     const [error, setError] = useState(false)
 
+    const router = useRouter()
+
     useEffect(() => {
-        if (props.error) {
+        if (router.query.error) {
             setError(true)
         }
     })
+
+
 
     const handleLoginSubmission = async () => {
         setError(false)
