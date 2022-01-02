@@ -15,15 +15,16 @@ export default async function asynchandler(req, res) {
     const hashedPassword = hashSync(req.body.password, salt)
 
     const query = gql`
-    mutation CreateProPythonUser($username: String!, $email: String!, $password: String!) {
-      createProPythonUser(data: {username: $username, email: $email, password: $password}) { id }
+    mutation CreateProPythonUser($username: String!, $email: String!, $password: String!, $isPremium: Boolean!) {
+      createProPythonUser(data: {username: $username, email: $email, password: $password, isPremium: $isPremium}) { id }
     }
   `;
 
     const createQueryResult = await graphQLClient.request(query, {
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
+        isPremium: false,
     });
 
 

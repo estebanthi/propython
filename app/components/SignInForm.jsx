@@ -3,6 +3,7 @@ import Link from "next/link"
 import axios from "axios";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/router";
+import Spinner from "./Spinner";
 
 
 const SignInForm = (props) => {
@@ -13,6 +14,7 @@ const SignInForm = (props) => {
 
     const [allFieldsRequiredError, setAllFieldsRequiredError] = useState(false)
     const [error, setError] = useState(false)
+    const [spinner, setSpinner] = useState(false)
 
     const router = useRouter()
 
@@ -36,7 +38,11 @@ const SignInForm = (props) => {
             return
         }
 
-        return await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
+        setSpinner(true)
+
+        await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
+
+        setSpinner(false)
     }
 
     return (
@@ -76,6 +82,7 @@ const SignInForm = (props) => {
                         </span>
                         </label>
                     </div>
+                    <div className="flex justify-center items-center flex-col">
                     <div className="flex justify-center">
                         {allFieldsRequiredError && <span className="font-bold text-red-500">Tous les champs sont requis.</span>}
                         {error && <span className="font-bold text-red-500">Identifiants invalides.</span>}
@@ -86,11 +93,15 @@ const SignInForm = (props) => {
                     >
                         Envoyer
                     </button>
+                    </div>
                 </div>
                 <div className="flex justify-end">
                     <Link href="/auth/mot-de-passe-oublie">
                         <span className="cursor-pointer text-blue-700">Mot de passe oublié ?</span>
                     </Link>
+                </div>
+                <div className="my-4 flex justify-center">
+                    <Spinner visible={spinner}/>
                 </div>
             </div>
             <div className="w-auto ">

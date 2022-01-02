@@ -2,6 +2,8 @@ import React, {useRef, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {signIn} from "next-auth/react";
+import Loader from "react-loader-spinner";
+import Spinner from "./Spinner";
 
 
 const SignUpForm = () => {
@@ -18,6 +20,7 @@ const SignUpForm = () => {
     const [notValidEmailError, setNotValidEmailError] = useState(false)
     const [serverError, setServerError] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [spinner, setSpinner] = useState(false)
 
     const handleSubmission = async () => {
         setAllFieldsRequiredError(false)
@@ -42,11 +45,14 @@ const SignUpForm = () => {
             return
         }
 
+        setSpinner(true)
+
 
         let userFound = await axios.post("/api/users/check/email", {email: email})
             .then((result) => result.data.proPythonUser)
         if (userFound) {
             setEmailTakenError(true)
+            setSpinner(false)
             return
         }
 
@@ -54,6 +60,7 @@ const SignUpForm = () => {
             .then((result) => result.data.proPythonUser)
         if (userFound) {
             setUsernameTakenError(true)
+            setSpinner(false)
             return
         }
 
@@ -63,11 +70,14 @@ const SignUpForm = () => {
 
         if (!success) {
             setServerError(true)
+            setSpinner(false)
             return
         }
 
         setSuccess(true)
         await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
+
+        setSpinner(false)
 
     }
 
@@ -104,17 +114,22 @@ const SignUpForm = () => {
                         />
                     </div>
                 </div>
-                <div className="flex justify-center flex-col">
+                <div className="flex justify-center flex-col items-center">
                     {allFieldsRequiredError && <span className="font-bold text-red-500">Tous les champs sont requis.</span>}
                     {emailTakenError && <span className="font-bold text-red-500">Cette adresse mail est déjà utilisée.</span>}
                     {usernameTakenError && <span className="font-bold text-red-500">Ce nom d'utilisateur est déjà utilisé.</span>}
                     {notValidEmailError && <span className="font-bold text-red-500">Veuillez entrer un mail valide.</span>}
-                    <button
-                        type="button" onClick={handleSubmission}
-                        className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
-                    >
-                        Envoyer
-                    </button>
+                        <button
+                            type="button" onClick={handleSubmission}
+                            className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
+                        >
+                            Envoyer
+                        </button>
+
+
+                        <div className="my-4">
+                        <Spinner visible={spinner}/>
+                        </div>
                     {success && <span className="font-bold text-green-500">Compte créé avec succès !</span>}
                 </div>
             </div>
