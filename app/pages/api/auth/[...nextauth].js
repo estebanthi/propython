@@ -46,13 +46,23 @@ export default NextAuth({
         updateAge: 24 * 60 * 60,
     },
     callbacks: {
-        async jwt(token) {
-            console.log(token.user)
+        async jwt({ token, account , user}) {
+            if (user)
+            {
+                token.username = user.username
+            }
             return token
         },
-        async session({ session, token, user }) {
+
+        async session({ session, token }) {
+            if (token) {
+                session.user = {
+                    username: token.username,
+                    email: token.email,
+                    id: token.sub
+                }
+            }
             return session
         }
-
     }
 })

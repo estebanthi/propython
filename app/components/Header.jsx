@@ -11,6 +11,8 @@ const Header = () => {
     const [categories, setCategories] = useState([]);
     const { data: session, status } = useSession()
 
+    console.log(session)
+
     useEffect(() => {
         getCategories().then((newCategories) => {
             setCategories(newCategories);

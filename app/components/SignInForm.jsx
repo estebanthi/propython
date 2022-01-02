@@ -31,7 +31,7 @@ const SignInForm = (props) => {
             return
         }
 
-        await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
+        return await signIn("credentials", {email: email, password: password, callbackUrl:"/"})
     }
 
     return (
