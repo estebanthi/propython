@@ -29,7 +29,6 @@ export default NextAuth({
                 const user = res.data.user
                 // If no error and we have user data, return it
                 if (user) {
-                    console.log(user)
                     return user
                 }
                 // Return null if user data could not be retrieved
@@ -40,5 +39,20 @@ export default NextAuth({
     pages: {
         signIn: "/auth/sign-in"
     },
-    secret: process.env.AUTH_HASH_SECRET
+    secret: process.env.AUTH_HASH_SECRET,
+    session: {
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
+        updateAge: 24 * 60 * 60,
+    },
+    callbacks: {
+        async jwt(token) {
+            console.log(token.user)
+            return token
+        },
+        async session({ session, token, user }) {
+            return session
+        }
+
+    }
 })
