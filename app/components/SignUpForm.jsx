@@ -5,6 +5,8 @@ import {signIn} from "next-auth/react";
 import Loader from "react-loader-spinner";
 import Spinner from "./Spinner";
 
+import jwt from "jsonwebtoken"
+
 
 const SignUpForm = () => {
 
@@ -64,20 +66,12 @@ const SignUpForm = () => {
             return
         }
 
-        const success = await axios.post("/api/users/register", {username: username, email: email, password: password})
-            .then((result) => result.data.publishProPythonUser)
+        const code = Math.round((Math.random() * (999999-100000) + 100000))
+        var token = await jwt.sign({code: code, username: username, email: email, password: password}, process.env.NEXT_PUBLIC_JWT_SIGN)
 
+        await axios.post("/api/mail/send-code", {code: code, email: email})
 
-        if (!success) {
-            setServerError(true)
-            setSpinner(false)
-            return
-        }
-
-        setSuccess(true)
-        await signIn("credentials", {email: email, password: password, callbackUrl:process.env.BASE_URL})
-
-        setSpinner(false)
+        await router.push({pathname: "/auth/verify", query: {token: JSON.stringify(token)}})
 
     }
 

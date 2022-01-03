@@ -19,7 +19,7 @@ export default NextAuth({
             },
             async authorize(credentials, req) {
 
-                const res = await axios.post(process.env.BASE_URL+"/api/users/login", {email: credentials.email, password:credentials.password})
+                const res = await axios.post(process.env.NEXT_PUBLIC_BASE_URL+"/api/users/login", {email: credentials.email, password:credentials.password})
                 const user = res.data.user
                 // If no error and we have user data, return it
                 if (user) {

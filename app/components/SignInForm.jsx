@@ -40,7 +40,7 @@ const SignInForm = (props) => {
 
         setSpinner(true)
 
-        await signIn("credentials", {email: email, password: password, callbackUrl:process.env.BASE_URL})
+        await signIn("credentials", {email: email, password: password, callbackUrl:process.env.NEXT_PUBLIC_BASE_URL})
 
         setSpinner(false)
     }
