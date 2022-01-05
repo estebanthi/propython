@@ -15,50 +15,31 @@ export default async function asynchandler(req, res) {
     },
   });
 
-  const findUserQuery = gql`
-  query MyQuery($email: String!) {
-  proPythonUser(where: {email: $email}) {
-    id
-  }
-}
-  `
-
-  const userFound = await graphQLClient.request(findUserQuery, {email: req.body.email})
-
-  if (!userFound.proPythonUser) {
-    const createUserQuery = gql `
-    mutation CreateProPythonUser($name: String!, $email: String!) {
-      createProPythonUser(data: {name: $name, email: $email}) { id }
-    }
-    `
-    const userCreated = await graphQLClient.request(createUserQuery, {name: req.body.name, email: req.body.email})
-
-    const publishUser = gql `
-    mutation query($email: String!) {
-  publishProPythonUser(where: {email: $email}) {
-    id
-  }
-}
-
-        `
-    const contentPublished = await graphQLClient.request(publishUser, {email: req.body.email})
-  }
-
-
-
 
   const query = gql`
-    mutation CreateComment($email: String!, $comment: String!, $slug: String!) {
-      createComment(data: {proPythonUser: {connect: {email: $email}}, comment: $comment, post: {connect: {slug: $slug}}}) { id }
+    mutation CreateComment($userId: ID!, $comment: String!, $slug: String!) {
+      createComment(data: {proPythonUser: {connect: {id: $userId}}, comment: $comment, post: {connect: {slug: $slug}}}) { id }
     }
   `;
 
   const result = await graphQLClient.request(query, {
-    name: req.body.name,
-    email: req.body.email,
+    userId: req.body.userId,
     comment: req.body.comment,
     slug: req.body.slug,
   });
 
-  return res.status(200).send(result);
+
+  const publish = gql`
+    mutation PublishComment($id: ID!){
+  publishComment(where: { id : $id}, to: PUBLISHED) {
+    id
+  }
+}
+`
+
+  const publishResult = await graphQLClient.request(publish, {
+    id: result.createComment.id
+  });
+
+  return res.status(200).send(publishResult);
 }

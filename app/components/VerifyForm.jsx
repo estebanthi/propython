@@ -54,7 +54,7 @@ const VerifyForm = () => {
             .then((result) => result.data.publishProPythonUser)
 
         setSuccess(true)
-        await signIn("credentials", {email: email, password: password, callbackUrl:process.env.NEXT_PUBLIC_BASE_URL})
+        await signIn("credentials", {email: email, password: password, callbackUrl:(router.query.callbackUrl ? process.env.NEXT_PUBLIC_BASE_URL+router.query.callbackUrl : process.env.NEXT_PUBLIC_BASE_URL)})
 
     }
 

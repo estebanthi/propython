@@ -196,7 +196,7 @@ export const getComments = async (slug) => {
     query GetComments($slug: String!) {
     comments(where: {post: {slug: $slug}}) {
     proPythonUser {
-        name
+        username
     }
     createdAt
     comment}

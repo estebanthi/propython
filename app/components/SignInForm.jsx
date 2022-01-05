@@ -40,7 +40,7 @@ const SignInForm = (props) => {
 
         setSpinner(true)
 
-        await signIn("credentials", {email: email, password: password, callbackUrl:process.env.NEXT_PUBLIC_BASE_URL})
+        await signIn("credentials", {email: email, password: password, callbackUrl:(router.query.callbackUrl ? process.env.NEXT_PUBLIC_BASE_URL+router.query.callbackUrl : process.env.NEXT_PUBLIC_BASE_URL)})
 
         setSpinner(false)
     }
@@ -107,7 +107,7 @@ const SignInForm = (props) => {
             <div className="w-auto ">
                 <div className="flex flex-col items-center justify-center mt-10 bg-white rounded-md py-4 px-10 lg:mx-10 mx-4">
                     <h1 className="text-lg font-bold border-b">Pas encore de compte ?</h1>
-                    <Link href="/auth/sign-up">
+                    <Link href={{pathname: "/auth/sign-up", query: {callbackUrl: router.query.callbackUrl}}}>
                         <button
                             type="button"
                             className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"

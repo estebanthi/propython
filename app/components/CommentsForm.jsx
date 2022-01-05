@@ -1,52 +1,62 @@
 import React, {useState, useEffect, useRef} from "react";
 import {submitComment} from "../services";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
+import Spinner from "./Spinner";
 
 const CommentsForm = ({slug}) => {
+
+    const { data: session, status } = useSession()
+    const router = useRouter()
 
     const [error, setError] = useState(false);
     const [localStorage, setLocalStorage] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const commentEl = useRef();
-    const nameEl = useRef();
-    const emailEl = useRef();
-    const storeDataEl = useRef();
+    const [spinner, setSpinner] = useState(false)
 
-    useEffect(() => {
-        nameEl.current.value = window.localStorage.getItem('name');
-        emailEl.current.value = window.localStorage.getItem('email');
-    }, [])
 
-    const handleCommentSubmission = () => {
+    const handleCommentSubmission = async () => {
         setError(false);
+        setSpinner(false)
 
         const { value: comment } = commentEl.current;
-        const { value: name } = nameEl.current;
-        const { value: email } = emailEl.current;
-        const { value: storeData } = storeDataEl.current;
 
-        if(!comment || !name || !email) {
+        if(!comment) {
             setError(true);
             return;
         }
 
-        const commentObj = {name, email, comment, slug};
+        await setSpinner(true)
 
-        if (storeData) {
-            window.localStorage.setItem("name", name);
-            window.localStorage.setItem("email", email);
-        } else {
-            window.localStorage.removeItem("name", name);
-            window.localStorage.removeItem("email", email);
-        }
+        const commentObj = {comment: comment, slug: slug, userId:session.user.id};
 
-        submitComment(commentObj)
+        await submitComment(commentObj)
             .then((res) => {
+                setSpinner(false)
                 setShowSuccessMessage(true);
 
                 setTimeout(() => {
                     setShowSuccessMessage(false);
                 }, 3000);
             })
+
+    }
+
+    if (status != "authenticated") {
+        return (
+            <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
+                <h1 className="text-xl mb-8 font-semibold border-b pb-4">Laisser un commentaire</h1>
+                <button
+                    type="button" onClick={() => {
+                    router.push({pathname: "/auth/sign-in", query: {callbackUrl: "/post/"+slug}})
+                }}
+                    className="ml-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
+                >
+                    Se connecter
+                </button>
+            </div>
+        )
     }
 
     return (
@@ -59,35 +69,17 @@ const CommentsForm = ({slug}) => {
                           name="comment"
                 />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-                <input
-                    type="text" ref={nameEl}
-                    className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-                    placeholder="Nom"
-                    name="name"
-                />
-                <input
-                    type="text" ref={emailEl}
-                    className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-                    placeholder="Email"
-                    name="email"
-                />
-            </div>
-            <div className="grid grid-cols-1 gap-4 mb-4">
-                <div>
-                    <input ref={storeDataEl} type="checkbox" id="storeData" name="storeData" value="true"/>
-                    <label className="text-gray-500 cursor-pointer ml-2" htmlFor="storeData">Mémoriser mes informations pour la prochaine fois.</label>
-                </div>
-            </div>
-            {error && <p className="text-xs text-red-500">Tous les champs sont requis.</p>}
-            <div className="mt-8">
+            {error && <p className="text-md text-red-500">Commentaire vide.</p>}
+            <div className="mt-8 flex items-center">
+
                 <button
                     type="button" onClick={handleCommentSubmission}
                     className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
                 >
                     Envoyer
                 </button>
-                {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Commentaire envoyé pour vérification</span>}
+                {spinner ? <div className="ml-5"><Spinner /></div> : ""}
+                {showSuccessMessage && <span className="text-xl ml-5 font-semibold text-green-500">Commentaire envoyé !</span>}
             </div>
         </div>
 

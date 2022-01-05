@@ -13,7 +13,7 @@ export default async function asynchandler(req, res) {
 
     const query = gql`
     mutation PublishProPythonUser($email: String!){
-  publishProduct(where: { email: $email}, to: PUBLISHED) {
+  publishProPythonUser(where: { email: $email}, to: PUBLISHED) {
     id
   }
 }

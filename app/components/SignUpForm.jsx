@@ -71,7 +71,7 @@ const SignUpForm = () => {
 
         await axios.post("/api/mail/send-code", {code: code, email: email})
 
-        await router.push({pathname: "/auth/verify", query: {token: JSON.stringify(token)}})
+        await router.push({pathname: "/auth/verify", query: {token: JSON.stringify(token), callbackUrl: router.query.callbackUrl}})
 
     }
 
