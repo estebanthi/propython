@@ -7,7 +7,7 @@ export default async function asynchandler(req, res) {
 
     const msg = {
         to: req.body.email, // Change to your recipient
-        from: 'admin@propython.fr', // Change to your verified sender
+        from: process.env.NEXT_PUBLIC_ADMIN_EMAIL, // Change to your verified sender
         subject: 'Bienvenue chez ProPython !',
         text: 'Voici votre code : '+req.body.code,
     }

@@ -294,7 +294,7 @@ export const submitDownload = async (id) => {
 
 
 export const submitMessage = async (obj) => {
-    const result = await fetch("/api/messages", {
+    const result = await fetch("/api/mail/notify-admin/new-message", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -302,5 +302,8 @@ export const submitMessage = async (obj) => {
         body: JSON.stringify(obj),
     })
 
-    return result.json();
+    console.log(result)
+
+
+    return result;
 }

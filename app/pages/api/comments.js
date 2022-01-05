@@ -42,7 +42,7 @@ export default async function asynchandler(req, res) {
     id: result.createComment.id
   });
 
-  const notifyAdmin = await axios.post(process.env.NEXT_PUBLIC_BASE_URL+"/api/mail/notify-admin/new-comment", {slug: req.body.slug, userId: req.body.userId, comment: req.body.comment})
+  const notifyAdmin = await axios.post(process.env.NEXT_PUBLIC_BASE_URL+"/api/mail/notify-admin/new-comment", {slug: req.body.slug, userId: req.body.userId, comment: req.body.comment, username:req.body.username})
 
   return res.status(200).send(publishResult);
 }

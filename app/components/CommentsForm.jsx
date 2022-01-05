@@ -12,15 +12,13 @@ const CommentsForm = ({slug}) => {
     const [error, setError] = useState(false);
     const [localStorage, setLocalStorage] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const commentEl = useRef();
+    const [comment, setComment] = useState("")
     const [spinner, setSpinner] = useState(false)
 
 
     const handleCommentSubmission = async () => {
         setError(false);
         setSpinner(false)
-
-        const { value: comment } = commentEl.current;
 
         if(!comment) {
             setError(true);
@@ -29,7 +27,7 @@ const CommentsForm = ({slug}) => {
 
         await setSpinner(true)
 
-        const commentObj = {comment: comment, slug: slug, userId:session.user.id};
+        const commentObj = {comment: comment, slug: slug, userId:session.user.id, username: session.user.username};
 
         await submitComment(commentObj)
             .then((res) => {
@@ -40,6 +38,7 @@ const CommentsForm = ({slug}) => {
                     setShowSuccessMessage(false);
                 }, 3000);
             })
+            .then(() => setComment(""))
 
     }
 
@@ -63,7 +62,8 @@ const CommentsForm = ({slug}) => {
         <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
             <h1 className="text-xl mb-8 font-semibold border-b pb-4">Laisser un commentaire</h1>
             <div className="grid grid-cols-1 gap-4 mb-4">
-                <textarea ref={commentEl}
+                <textarea value={comment}
+                          onChange={(e) => setComment(e.target.value)}
                           className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
                           placeholder="Commentaire"
                           name="comment"
