@@ -10,7 +10,6 @@ import {
     Comments,
     CommentsForm,
     Loader,
-    Newsletter,
     Layout
 } from "../../components";
 
@@ -45,7 +44,6 @@ const PostDetails = ({post}) => {
                     <div className="relative lg:sticky top-8">
                         <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)}/>
                         <Categories />
-                        <Newsletter />
                         <Contact />
                     </div>
                 </div>

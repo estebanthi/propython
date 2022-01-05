@@ -49,7 +49,7 @@ const CommentsForm = ({slug}) => {
                 <h1 className="text-xl mb-8 font-semibold border-b pb-4">Laisser un commentaire</h1>
                 <button
                     type="button" onClick={() => {
-                    router.push({pathname: "/auth/sign-in", query: {callbackUrl: "/post/"+slug}})
+                    router.push({pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}})
                 }}
                     className="ml-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
                 >
