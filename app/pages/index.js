@@ -7,6 +7,7 @@ import Contact from "../components/Contact";
 import React from "react";
 import PostDetails from "./post/[slug]";
 import PremiumWidget from "../components/PremiumWidget";
+import SideLayout from "../components/SideLayout";
 
 export default function Home({ posts }) {
 
@@ -28,11 +29,7 @@ export default function Home({ posts }) {
 
             <div className="lg:col-span-4 col-span-1">
                 <div className="lg:sticky relative top-8">
-                    <PremiumWidget />
-                    <PostWidget />
-                    <Categories />
-                    <Ressources />
-                    <Contact />
+                    <SideLayout />
                 </div>
             </div>
         </div>
