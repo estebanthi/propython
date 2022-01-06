@@ -7,7 +7,7 @@ import {useSession} from "next-auth/react";
 
 import {signOut} from "next-auth/react";
 import {Logout} from "@mui/icons-material";
-import {router} from "next/client";
+import {useRouter} from "next/router"
 
 
 
@@ -15,6 +15,8 @@ const Header = () => {
 
     const [categories, setCategories] = useState([]);
     const { data: session, status } = useSession()
+
+    const router = useRouter()
 
     useEffect(() => {
         getCategories().then((newCategories) => {
@@ -55,6 +57,13 @@ const Header = () => {
                             </span>
                         </Link>
                     </div>
+
+                    <Link href="/premium">
+                    <span className="md:float-right mt-2 align-middle text-lime-300 border-lime-300 ml-4 font-semibold cursor-pointer border-2 p-2 ">
+                        Premium
+                    </span>
+                    </Link>
+
 
                     <div>
                         {status != "authenticated" ? <Link href="/auth/sign-in">
