@@ -2,8 +2,8 @@ import React, {useCallback, useState} from "react";
 import {withReact, Slate, Editable} from "slate-react";
 import {createEditor, Transforms, Editor, Text} from "slate";
 import {
-    FontDownload,
-    HighlightOff, HighlightOffOutlined,
+    FontDownload, FormatBold, FormatBoldOutlined, FormatItalic, FormatUnderlined,
+    HighlightOff, HighlightOffOutlined, InsertLink,
     Looks3,
     Looks3Outlined,
     Looks4, Looks4Outlined,
@@ -12,6 +12,9 @@ import {
     LooksOne, LooksOneOutlined,
     LooksTwo, LooksTwoOutlined
 } from "@material-ui/icons";
+import Popup from "reactjs-popup";
+import {insertLink} from "../utils/editor";
+import Link from "next/link"
 
 
 const CustomEditor = {
@@ -129,11 +132,13 @@ const EditorComponent = () => {
         let count = 0;
         content.forEach(value => {
             let s = value['children'][0]['text'];
-            if (s.length != 0 && s.match(/\b[-?(\w+)?]+\b/gi)) {
-                s = s.replace(/(^\s*)|(\s*$)/gi, "");
-                s = s.replace(/[ ]{2,}/gi, " ");
-                s = s.replace(/\n /, "\n");
-                count += s.split(' ').length;
+            if (s) {
+                if (s.length != 0 && s.match(/\b[-?(\w+)?]+\b/gi)) {
+                    s = s.replace(/(^\s*)|(\s*$)/gi, "");
+                    s = s.replace(/[ ]{2,}/gi, " ");
+                    s = s.replace(/\n /, "\n");
+                    count += s.split(' ').length;
+                }
             }
         });
         return count;
@@ -141,7 +146,9 @@ const EditorComponent = () => {
     const countChars = content => {
         let count = content.length > 1 ? content.length - 1 : 0;
         content.forEach(value => {
-            count += value['children'][0]['text'].length;
+            if (value['children'][0]['text']) {
+                count += value['children'][0]['text'].length;
+            }
         });
         return count;
     }
@@ -171,6 +178,8 @@ const EditorComponent = () => {
                 return <HeadingFiveElement {...props} />
             case 'heading-six':
                 return <HeadingSixElement {...props} />
+            case "link":
+                return <LinkElem {...props} />;
             default:
                 return <DefaultElement {...props} />
         }
@@ -183,85 +192,103 @@ const EditorComponent = () => {
         <div>
             <div className="bg-white shadow-lg rounded-lg px-8 py-4 mb-2 sticky top-0 flex">
                 <div className="border-r-2 border-black px-2">
-                    {headingSelected == 0 ? <HighlightOff className="text-blue-500 cursor-pointer"/> : <HighlightOff className="cursor-pointer" onClick={() => {
+                    {headingSelected == 0 ? <HighlightOff className="text-blue-500 cursor-pointer"/> : <HighlightOff className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(0)
                         CustomEditor.updateHeadingBlock(editor, 0)
                     }}/>}
-                    {headingSelected == 1 ? <LooksOne className="cursor-pointer"/> : <LooksOneOutlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 1 ? <LooksOne className="cursor-pointer"/> : <LooksOneOutlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(1)
                         CustomEditor.updateHeadingBlock(editor, 1)
                     }}/>}
-                    {headingSelected == 2 ? <LooksTwo className="cursor-pointer"/> : <LooksTwoOutlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 2 ? <LooksTwo className="cursor-pointer"/> : <LooksTwoOutlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(2)
                         CustomEditor.updateHeadingBlock(editor, 2)
                     }}/>}
-                    {headingSelected == 3 ? <Looks3 className="cursor-pointer"/> : <Looks3Outlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 3 ? <Looks3 className="cursor-pointer"/> : <Looks3Outlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(3)
                         CustomEditor.updateHeadingBlock(editor, 3)
                     }}/>}
-                    {headingSelected == 4 ? <Looks4 className="cursor-pointer"/> : <Looks4Outlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 4 ? <Looks4 className="cursor-pointer"/> : <Looks4Outlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(4)
                         CustomEditor.updateHeadingBlock(editor, 4)
                     }}/>}
-                    {headingSelected == 5 ? <Looks5 className="cursor-pointer"/> : <Looks5Outlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 5 ? <Looks5 className="cursor-pointer"/> : <Looks5Outlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(5)
                         CustomEditor.updateHeadingBlock(editor, 5)
                     }}/>}
-                    {headingSelected == 6 ? <Looks6 className="cursor-pointer"/> : <Looks6Outlined className="cursor-pointer" onClick={() => {
+                    {headingSelected == 6 ? <Looks6 className="cursor-pointer"/> : <Looks6Outlined className="cursor-pointer hover:text-blue-500" onClick={() => {
                         setHeadingSelected(6)
                         CustomEditor.updateHeadingBlock(editor, 6)
                     }}/>}
                 </div>
+                <div className="border-r-2 border-black px-2">
+                    <FormatBold className="cursor-pointer hover:text-blue-500" onClick={() => {
+                        CustomEditor.toggleBoldMark(editor)
+                    }
+                    }/>
+                    <FormatItalic className="cursor-pointer hover:text-blue-500" onClick={() => {
+                        CustomEditor.toggleItalicMark(editor)}
+                    }/>
+                    <FormatUnderlined className="cursor-pointer hover:text-blue-500" onClick={() => {
+                        CustomEditor.toggleUnderlineMark(editor)}
+                    }/>
+                </div>
+                <div className="border-r-2 border-black px-2">
+                    <InsertLink onClick={() => {
+                        const url = prompt("Addresse du lien : ")
+                        insertLink(editor, url)
+                    }}/>
+                </div>
             </div>
-        <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
+            <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
 
-            <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-                <Editable
-                    renderElement={renderElement}
-                    renderLeaf={renderLeaf}
-                    onKeyDown={event => {
-                        if (!event.ctrlKey) {
-                            return
-                        }
-
-                        // Replace the `onKeyDown` logic with our new commands.
-                        switch (event.key) {
-                            case '-': {
-                                event.preventDefault()
-                                CustomEditor.toggleCodeBlock(editor)
-                                break
+                <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+                    <Editable
+                        renderElement={renderElement}
+                        renderLeaf={renderLeaf}
+                        onKeyDown={event => {
+                            if (!event.ctrlKey) {
+                                return
                             }
 
-                            case 'b': {
-                                event.preventDefault()
-                                CustomEditor.toggleBoldMark(editor)
-                                break
-                            }
+                            // Replace the `onKeyDown` logic with our new commands.
+                            switch (event.key) {
+                                case '-': {
+                                    event.preventDefault()
+                                    CustomEditor.toggleCodeBlock(editor)
+                                    break
+                                }
 
-                            case 'o': {
-                                event.preventDefault()
-                                console.log(value)
-                                break
-                            }
+                                case 'b': {
+                                    event.preventDefault()
+                                    CustomEditor.toggleBoldMark(editor)
+                                    break
+                                }
 
-                            case 'i': {
-                                event.preventDefault()
-                                CustomEditor.toggleItalicMark(editor)
-                                break
-                            }
+                                case 'o': {
+                                    event.preventDefault()
+                                    console.log(value)
+                                    break
+                                }
 
-                            case 'u': {
-                                event.preventDefault()
-                                CustomEditor.toggleUnderlineMark(editor)
-                                console.log(countWords(value))
-                                break
-                            }
-                        }
-                    }}
-                />
-            </Slate>
+                                case 'i': {
+                                    event.preventDefault()
+                                    CustomEditor.toggleItalicMark(editor)
+                                    break
+                                }
 
-        </div>
+                                case 'u': {
+                                    event.preventDefault()
+                                    CustomEditor.toggleUnderlineMark(editor)
+                                    console.log(countWords(value))
+                                    break
+                                }
+                            }
+                        }}
+                    />
+                </Slate>
+
+            </div>
             <div className="bg-white">
                 Mots : {countWords(value)}
                 Caractères : {countChars(value)}
@@ -289,8 +316,8 @@ const DefaultElement = props => {
 const HeadingOneElement = props => {
     return (
         <h1 className="text-3xl font-semibold mb-4" {...props.attributes}>
-      {props.children}
-    </h1>
+            {props.children}
+        </h1>
     )
 }
 
@@ -347,3 +374,21 @@ const Leaf = props => {
     </span>
     )
 }
+
+
+import { useSelected, useFocused, useSlateStatic } from "slate-react";
+import { removeLink} from "../utils/editor";
+
+
+const LinkElem = ({ attributes, element, children }) => {
+
+    return (
+        <div>
+            <Link href={element.href} >
+            <a {...attributes} className="text-blue-500 cursor-pointer">
+                {children}
+            </a>
+            </Link>
+        </div>
+    );
+};
