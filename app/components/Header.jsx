@@ -71,8 +71,8 @@ const Header = () => {
                                 Se connecter / Créer un compte
                             </span>
                         </Link> : <div className="flex justify-center flex-col text-white font-semibold ml-4">
-                            <span >Connecté en tant que {<span className="text-yellow-400">{session.user.username}</span>}</span>
-                            <button onClick={() => signOut({callbackUrl: router.asPath})} className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 font-semibold cursor-pointer border-2 p-2 ">Se déconnecter</button></div>}
+                            <span >Connecté en tant que {<span className={session.user.isPremium ? "text-violet-300" : "text-yellow-400"}>{session.user.username}</span>}</span>
+                            <button onClick={() => signOut({callbackUrl: router.asPath})} className={"md:float-right mt-2 align-middle font-semibold cursor-pointer border-2 p-2 text-yellow-400 border-yellow-400"}>Se déconnecter</button></div>}
 
                     </div>
 

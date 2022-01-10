@@ -8,13 +8,13 @@ import Spinner from "./Spinner";
 
 const SignInForm = (props) => {
 
-
-    const emailEl = useRef()
-    const passwordEl = useRef()
-
     const [allFieldsRequiredError, setAllFieldsRequiredError] = useState(false)
     const [error, setError] = useState(false)
     const [spinner, setSpinner] = useState(false)
+
+    const [remember, setRemember] = useState(true)
+    const [password, setPassword] = useState()
+    const [email, setEmail] = useState()
 
     const router = useRouter()
 
@@ -22,7 +22,11 @@ const SignInForm = (props) => {
         if (router.query.error == "CredentialsSignin") {
             setError(true)
         }
-    })
+        const passwordStor = localStorage.getItem("password")
+        const emailStor = localStorage.getItem("email")
+        setPassword(passwordStor)
+        setEmail(emailStor)
+    }, [])
 
 
 
@@ -30,12 +34,21 @@ const SignInForm = (props) => {
         setError(false)
         setAllFieldsRequiredError(false)
 
-        const {value: email} = emailEl.current
-        const {value: password} = passwordEl.current
-
         if (!email || !password) {
             setAllFieldsRequiredError(true)
             return
+        }
+
+
+
+        if (remember) {
+            localStorage.setItem("password", password)
+            localStorage.setItem("email", email)
+        }
+
+        else {
+            localStorage.setItem("password", "")
+            localStorage.setItem("email", "")
         }
 
         setSpinner(true)
@@ -55,16 +68,18 @@ const SignInForm = (props) => {
                             <span className="font-bold">Email</span>
                             <input
                                 className="border-2 p-2 border-black rounded-md mt-2"
-                                ref = {emailEl}
                                 type="text"
                                 placeholder="Entrez votre email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
                             />
                         </div>
                         <div className="my-4 flex flex-col">
                             <span className="font-bold">Mot de passe</span>
                             <input
                                 className="border-2 p-2 border-black rounded-md mt-2"
-                                ref = {passwordEl}
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
                                 type="password"
                                 placeholder="**************"
                             />
@@ -74,7 +89,7 @@ const SignInForm = (props) => {
                 <div>
                     <div className="my-4">
                         <label className="font-bold">
-                            <input defaultChecked={true}
+                            <input checked={remember} onChange={() => setRemember(!remember)}
                                 type="checkbox"
                             />
                             <span className="ml-1">
