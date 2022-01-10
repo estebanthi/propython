@@ -18,6 +18,7 @@ export default async function asynchandler(req, res) {
     email
     username
     isPremium
+    premiumSince
   }
 }
   `;

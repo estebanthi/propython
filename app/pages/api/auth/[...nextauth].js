@@ -43,8 +43,12 @@ export default NextAuth({
         async jwt({ token, account , user}) {
             if (user)
             {
+                const since = user.premiumSince
+                const sinceDate = new Date(since)
+                const expirationDate = new Date(sinceDate.setMonth(sinceDate.getMonth()+1))
                 token.username = user.username
                 token.isPremium = user.isPremium
+                token.premiumExpiration = expirationDate
             }
             return token
         },
@@ -55,7 +59,8 @@ export default NextAuth({
                     username: token.username,
                     email: token.email,
                     isPremium: token.isPremium,
-                    id: token.sub
+                    id: token.sub,
+                    premiumExpiration: token.premiumExpiration
                 }
             }
             return session

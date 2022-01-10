@@ -5,7 +5,9 @@ import SideLayout from "../components/SideLayout";
 
 const PremiumPage = () => {
 
-    return (
+    const dispo = false
+
+    if (dispo) {return (
         <div>
             <div className="container mx-auto px-10 mb-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -31,7 +33,13 @@ const PremiumPage = () => {
                     </div>
                 </div>
         </div>
-    )
+    )}
+
+    return <div className="px-10">
+        <div className="container mx-auto px-10 mb-8 bg-white py-10 rounded-lg text-center">
+            Cette page n'est pas encore disponible
+        </div>
+    </div>
 
 }
 
