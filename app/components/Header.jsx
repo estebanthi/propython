@@ -59,7 +59,7 @@ const Header = () => {
                     </div>
 
                     <Link href="/premium">
-                    <span className="md:float-right mt-2 align-middle text-lime-300 border-lime-300 ml-4 font-semibold cursor-pointer border-2 p-2 ">
+                    <span className="md:float-right mt-2 align-middle text-violet-300 ml-4 font-semibold border-2 border-violet-300 cursor-pointer p-2 ">
                         Premium
                     </span>
                     </Link>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { getCategories, getCategoryPost } from '../../services';
 import {PostCard, Categories, Loader, Layout} from '../../components';
 import Home from "../index";
+import SideLayout from "../../components/SideLayout";
 
 const CategoryPost = ({ posts }) => {
     const router = useRouter();
@@ -22,7 +23,7 @@ const CategoryPost = ({ posts }) => {
                 </div>
                 <div className="col-span-1 lg:col-span-4">
                     <div className="relative lg:sticky top-8">
-                        <Categories />
+                        <SideLayout />
                     </div>
                 </div>
             </div>

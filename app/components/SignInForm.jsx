@@ -19,7 +19,7 @@ const SignInForm = (props) => {
     const router = useRouter()
 
     useEffect(() => {
-        if (router.query.error) {
+        if (router.query.error == "CredentialsSignin") {
             setError(true)
         }
     })
@@ -74,7 +74,7 @@ const SignInForm = (props) => {
                 <div>
                     <div className="my-4">
                         <label className="font-bold">
-                            <input
+                            <input defaultChecked={true}
                                 type="checkbox"
                             />
                             <span className="ml-1">

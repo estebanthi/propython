@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import Link from "next/link";
 import {getRecentPosts, getSimilarPosts} from "../services";
+import {WorkspacePremium} from "@mui/icons-material";
 
 const PostWidget = ({ categories, slug }) => {
     const [relatedPosts, setRelatedPosts] = useState([])
@@ -49,6 +50,9 @@ const PostWidget = ({ categories, slug }) => {
                             }} className="cursor-pointer">{post.title}</span>
                         </Link>
                     </div>
+                    {post.premium ? <div className="text-violet-900 ml-10" data-tip="Article Premium">
+                        <WorkspacePremium />
+                    </div> : ""}
                 </div>
             ))}
         </div>

@@ -23,6 +23,7 @@ export const getPosts = async () => {
         excerpt
         difficulty
         prerequis
+        premium
         featuredImage {
           url
         }
@@ -65,6 +66,7 @@ export const getPostsDetails = async (slug) => {
         excerpt
         difficulty
         prerequis
+        premium
         featuredImage {
           url
         }
@@ -93,6 +95,7 @@ export const getRecentPosts = async () => {
         last: 3
         ) {
         title
+        premium
         featuredImage {
         url
         }
@@ -117,6 +120,7 @@ export const getSimilarPosts = async (categories, slug) => {
         featuredImage {
         url
         }
+        premium
         createdAt
         slug
         }
@@ -141,6 +145,7 @@ export const getFeaturedPosts = async () => {
         featuredImage {
           url
         }
+        premium
         title
         slug
         createdAt
@@ -227,6 +232,7 @@ export const getCategoryPost = async (slug) => {
             excerpt
             difficulty
             prerequis
+            premium
             featuredImage {
               url
             }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 
 import {getPosts, getPostDetails, getPostsDetails} from "../../services";
@@ -20,6 +20,7 @@ import Contact from "../../components/Contact";
 import PremiumWidget from "../../components/PremiumWidget";
 import Ressources from "../../components/Ressources";
 import SideLayout from "../../components/SideLayout";
+import {getSession, useSession} from "next-auth/react";
 
 
 var Analytics = require('analytics-node');
@@ -27,7 +28,21 @@ var analytics = new Analytics(process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY);
 
 const PostDetails = ({post}) => {
 
+    const [session, setSession] = useState(null)
     const router = useRouter();
+    useEffect(async () => {
+        const sessionGot = await getSession()
+        if (post.premium) {
+            if (!sessionGot) {
+                router.push({pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}})
+                return
+            }
+            if (!sessionGot.user.isPremium) {
+                router.push("/premium")
+                return
+            }
+        }
+    }, [])
 
     if(router.isFallback) {
         return <Loader />

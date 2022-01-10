@@ -1,8 +1,12 @@
 import React from "react";
 import moment from "moment";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+import {WorkspacePremium} from "@mui/icons-material";
 
 const PostCard = ({post}) => {
+
+    const { data: session, status } = useSession()
 
     let prerequis
     if (post.prerequis) {
@@ -42,7 +46,9 @@ const PostCard = ({post}) => {
                     </span>
                 </div>
                 {post.difficulty ? <span className={"ml-10 border-2 px-2 rounded-3xl "+getColors()}>{post.difficulty}</span> : ""}
-
+                {post.premium ? <div className="text-violet-900 ml-10" data-tip="Article Premium">
+                    <WorkspacePremium />
+                </div> : ""}
             </div>
             {prerequis ? <div className="bloc flex text-center items-center justify-center mb-8 w-full flex-col">
                 <span className="font-bold">Prérequis</span>
@@ -55,7 +61,35 @@ const PostCard = ({post}) => {
 
             <p className="text-center text-lg text-gray-700 font-normal px-4 lg:px-20 mb-8">{post.excerpt}</p>
             <div className="text-center">
-                <Link href={"/post/"+post.slug}>
+                {post.premium ? (status == "unauthenticated" ?
+                    <Link href={{
+                        pathname: "/auth/sign-in",
+                        query: {callbackUrl: "/post/"+post.slug}
+                    }}>
+                    <span
+                    className="transition duration-500 transform hover:-translate-y-1 inline-block bg-violet-900 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer"
+                >
+                    Se connecter
+                </span></Link> : ((session ? session.user.isPremium : false) ? <Link href={"/post/"+post.slug}>
+
+                      <span onClick={() => {
+                          analytics.track({
+                              anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
+                              event: 'Post viewed',
+                              properties: {
+                                  post: post.slug
+                              }
+                          })
+                      }} className="transition duration-500 transform hover:-translate-y-1 inline-block bg-violet-900 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer">
+                          Voir la suite
+                      </span>
+                    </Link> : <Link href="/premium">
+
+                      <span className="transition duration-500 transform hover:-translate-y-1 inline-block bg-violet-900 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer">
+                          Devenir Premium
+                      </span>
+                    </Link>)) : <Link href={"/post/"+post.slug}>
+
                       <span onClick={() => {
                           analytics.track({
                               anonymousId: '48d213bb-95c3-4f8d-af97-86b2b404dcfe',
@@ -67,7 +101,7 @@ const PostCard = ({post}) => {
                       }} className="transition duration-500 transform hover:-translate-y-1 inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer">
                           Voir la suite
                       </span>
-                </Link>
+                </Link>}
             </div>
         </div>
     )

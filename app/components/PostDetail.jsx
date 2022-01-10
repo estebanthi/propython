@@ -7,6 +7,7 @@ import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import {Switch} from "@material-ui/core";
 import Toggler from "./Toggler";
 import TableOfContents from "./TableOfContents";
+import {WorkspacePremium} from "@mui/icons-material";
 
 
 
@@ -40,7 +41,13 @@ const renderClass = (children, className) => {
 
 const PostDetail = ({post}) => {
 
+
     let counter = 0
+
+    let prerequis
+    if (post.prerequis) {
+        prerequis = post.prerequis.split("\n")
+    }
 
     const getColors = () => {
         switch (post.difficulty) {
@@ -93,8 +100,18 @@ const PostDetail = ({post}) => {
                     </span>
                     </div>
                     {post.difficulty ? <span className={"ml-10 border-2 px-2 rounded-3xl "+getColors()}>{post.difficulty}</span> : ""}
-
+                    {post.premium ? <div className="text-violet-900 ml-10" data-tip="Article Premium">
+                        <WorkspacePremium />
+                    </div> : ""}
                 </div>
+                {prerequis ? <div className="bloc flex text-center items-center justify-center mb-8 w-full flex-col">
+                    <span className="font-bold">Prérequis</span>
+                    <div className="mt-4 flex-col flex lg:flex-row">
+                        {prerequis.map((item) => {
+                            return <span className="mx-2 p-2 rounded-3xl border-2 border-sky-600 text-sky-600 my-2 lg:my-0">{item}</span>
+                        })}
+                    </div>
+                </div> : ""}
                 <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
                 <RichText content={post.content.raw} renderers={{
                     h1: ({children}) => <h1 className="text-3xl font-semibold mb-4">{children}</h1>,
