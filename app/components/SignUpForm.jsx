@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {signIn} from "next-auth/react";
 import Loader from "react-loader-spinner";
 import Spinner from "./Spinner";
+import Link from "next/link"
 
 import jwt from "jsonwebtoken"
 
@@ -113,17 +114,18 @@ const SignUpForm = () => {
                     {emailTakenError && <span className="font-bold text-red-500">Cette adresse mail est déjà utilisée.</span>}
                     {usernameTakenError && <span className="font-bold text-red-500">Ce nom d'utilisateur est déjà utilisé.</span>}
                     {notValidEmailError && <span className="font-bold text-red-500">Veuillez entrer un mail valide.</span>}
-                        <button
-                            type="button" onClick={handleSubmission}
-                            className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
-                        >
-                            Envoyer
-                        </button>
-
-
-                        <div className="my-4">
+                    <button
+                        type="button" onClick={handleSubmission}
+                        className="w-full py-3 transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-md text-white cursor-pointer my-4"
+                    >
+                        Envoyer
+                    </button>
+                    <div className="flex w-60">
+                    <p className="text-gray-400">Vos données personnelles sont conservées uniquement à des fins d'authentification. Plus d'infos ici : {<Link href={"/legal/politique-de-confidentialite"}><span className="cursor-pointer underline">Politique de Confidentialité</span></Link>}.</p>
+                    </div>
+                    <div className="my-4">
                         <Spinner visible={spinner}/>
-                        </div>
+                    </div>
                     {success && <span className="font-bold text-green-500">Compte créé avec succès !</span>}
                 </div>
             </div>
