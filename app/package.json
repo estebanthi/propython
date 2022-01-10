@@ -15,6 +15,7 @@
     "@mui/material": "^5.2.5",
     "@segment/snippet": "^4.15.3",
     "@sendgrid/mail": "^7.6.0",
+    "@slate-editor/link-plugin": "^5.1.0",
     "analytics-node": "^6.0.0",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",

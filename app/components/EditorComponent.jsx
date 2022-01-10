@@ -13,117 +13,10 @@ import {
     LooksTwo, LooksTwoOutlined
 } from "@material-ui/icons";
 import Popup from "reactjs-popup";
-import {insertLink} from "../utils/editor";
 import Link from "next/link"
-
-
-const CustomEditor = {
-    isBoldMarkActive(editor) {
-        const [match] = Editor.nodes(editor, {
-            match: n => n.bold === true,
-            universal: true,
-        })
-
-        return !!match
-    },
-
-    isItalicMarkActive(editor) {
-        const [match] = Editor.nodes(editor, {
-            match: n => n.italic === true,
-            universal: true,
-        })
-
-        return !!match
-    },
-
-    isUnderlineMarkActive(editor) {
-        const [match] = Editor.nodes(editor, {
-            match: n => n.underline === true,
-            universal: true,
-        })
-        return !!match
-    },
-
-    isCodeBlockActive(editor) {
-        const [match] = Editor.nodes(editor, {
-            match: n => n.type === 'code',
-        })
-
-        return !!match
-    },
-
-    toggleBoldMark(editor) {
-        const isActive = CustomEditor.isBoldMarkActive(editor)
-        Transforms.setNodes(
-            editor,
-            { bold: isActive ? null : true },
-            { match: n => Text.isText(n), split: true }
-        )
-    },
-
-    toggleItalicMark(editor) {
-        const isActive = CustomEditor.isItalicMarkActive(editor)
-        console.log(editor)
-        Transforms.setNodes(
-            editor,
-            { italic: isActive ? null : true },
-            { match: n => Text.isText(n), split: true }
-        )
-    },
-
-    toggleUnderlineMark(editor) {
-        const isActive = CustomEditor.isUnderlineMarkActive(editor)
-        Transforms.setNodes(
-            editor,
-            { underline: isActive ? null : true },
-            { match: n => Text.isText(n), split: true }
-        )
-    },
-
-    toggleCodeBlock(editor) {
-        const isActive = CustomEditor.isCodeBlockActive(editor)
-        Transforms.setNodes(
-            editor,
-            { type: isActive ? null : 'code' },
-            { match: n => Editor.isBlock(editor, n) }
-        )
-    },
-
-    updateHeadingBlock(editor, selected) {
-        let heading = null
-        switch (selected) {
-            case 0:
-                heading = null
-                break
-            case 1:
-                heading = 'heading-one'
-                break
-            case 2:
-                heading = 'heading-two'
-                break
-            case 3:
-                heading = 'heading-three'
-                break
-            case 4:
-                heading = 'heading-four'
-                break
-            case 5:
-                heading = 'heading-five'
-                break
-            case 6:
-                heading = 'heading-six'
-                break
-            default:
-                heading = null
-                break
-        }
-        Transforms.setNodes(
-            editor,
-            { type: heading },
-            { match: n => Editor.isBlock(editor, n) }
-        )
-    },
-}
+import CustomEditor from "./Editor/CustomEditor";
+import {Leaf, HeadingTwoElement, HeadingOneElement, HeadingSixElement, HeadingFiveElement, HeadingThreeElement, HeadingFourElement, DefaultElement, CodeElement, LinkElement} from "./Editor/elements"
+import insertLink from "../helpers/editor/link";
 
 
 const EditorComponent = () => {
@@ -178,8 +71,8 @@ const EditorComponent = () => {
                 return <HeadingFiveElement {...props} />
             case 'heading-six':
                 return <HeadingSixElement {...props} />
-            case "link":
-                return <LinkElem {...props} />;
+            case 'link':
+                return <LinkElement {...props} />
             default:
                 return <DefaultElement {...props} />
         }
@@ -246,45 +139,7 @@ const EditorComponent = () => {
                     <Editable
                         renderElement={renderElement}
                         renderLeaf={renderLeaf}
-                        onKeyDown={event => {
-                            if (!event.ctrlKey) {
-                                return
-                            }
 
-                            // Replace the `onKeyDown` logic with our new commands.
-                            switch (event.key) {
-                                case '-': {
-                                    event.preventDefault()
-                                    CustomEditor.toggleCodeBlock(editor)
-                                    break
-                                }
-
-                                case 'b': {
-                                    event.preventDefault()
-                                    CustomEditor.toggleBoldMark(editor)
-                                    break
-                                }
-
-                                case 'o': {
-                                    event.preventDefault()
-                                    console.log(value)
-                                    break
-                                }
-
-                                case 'i': {
-                                    event.preventDefault()
-                                    CustomEditor.toggleItalicMark(editor)
-                                    break
-                                }
-
-                                case 'u': {
-                                    event.preventDefault()
-                                    CustomEditor.toggleUnderlineMark(editor)
-                                    console.log(countWords(value))
-                                    break
-                                }
-                            }
-                        }}
                     />
                 </Slate>
 
@@ -300,95 +155,3 @@ const EditorComponent = () => {
 
 export default EditorComponent
 
-
-const CodeElement = props => {
-    return (
-        <pre {...props.attributes}>
-      <code>{props.children}</code>
-    </pre>
-    )
-}
-
-const DefaultElement = props => {
-    return <p {...props.attributes}>{props.children}</p>
-}
-
-const HeadingOneElement = props => {
-    return (
-        <h1 className="text-3xl font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const HeadingTwoElement = props => {
-    return (
-        <h1 className="text-2xl font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const HeadingThreeElement = props => {
-    return (
-        <h1 className="text-xl font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const HeadingFourElement = props => {
-    return (
-        <h1 className="text-lg font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const HeadingFiveElement = props => {
-    return (
-        <h1 className="text-md font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const HeadingSixElement = props => {
-    return (
-        <h1 className="text-sm font-semibold mb-4" {...props.attributes}>
-            {props.children}
-        </h1>
-    )
-}
-
-const Leaf = props => {
-    return (
-        <span
-            {...props.attributes}
-            style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal',
-                fontStyle: props.leaf.italic ? 'italic' : 'normal',
-                textDecoration: props.leaf.underline ? 'underline' : 'normal',
-            }}
-        >
-      {props.children}
-    </span>
-    )
-}
-
-
-import { useSelected, useFocused, useSlateStatic } from "slate-react";
-import { removeLink} from "../utils/editor";
-
-
-const LinkElem = ({ attributes, element, children }) => {
-
-    return (
-        <div>
-            <Link href={element.href} >
-            <a {...attributes} className="text-blue-500 cursor-pointer">
-                {children}
-            </a>
-            </Link>
-        </div>
-    );
-};

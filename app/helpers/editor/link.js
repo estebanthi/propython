@@ -1,19 +1,21 @@
-import { Editor, Transforms, Path, Range, Element } from "slate";
-import { ReactEditor } from "slate-react";
+import {Editor, Path, Transforms, Range} from "slate";
+import {ReactEditor} from "slate-react";
 
-export const createParagraphNode = (children = [{ text: "" }]) => ({
-    type: "paragraph",
-    children
-});
-
-
-export const createLinkNode = (href, text) => ({
+const createLinkNode = (href, text) => ({
     type: "link",
     href,
     children: [{ text }]
 });
 
-export const insertLink = (editor, url) => {
+const removeLink = (editor, opts = {}) => {
+    Transforms.unwrapNodes(editor, {
+        ...opts,
+        match: (n) =>
+            !Editor.isEditor(n) && Element.isElement(n) && n.type === "link"
+    });
+};
+
+const insertLink = (editor, url) => {
     if (!url) return;
 
     const { selection } = editor;
@@ -35,16 +37,17 @@ export const insertLink = (editor, url) => {
 
         if (editor.isVoid(parentNode)) {
             // Insert the new link after the void node
-            Transforms.insertNodes(editor, createParagraphNode([link]), {
+            Transforms.insertNodes(editor, createInlineNode([link]), {
                 at: Path.next(parentPath),
                 select: true
             });
         } else if (Range.isCollapsed(selection)) {
-            // Insert the new link in our last known locatio
+            // Insert the new link in our last known location
             Transforms.insertNodes(editor, link, { select: true });
         } else {
             // Wrap the currently selected range of text into a Link
             Transforms.wrapNodes(editor, link, { split: true });
+            // Remove the highlight and move the cursor to the end of the highlight
             Transforms.collapse(editor, { edge: "end" });
         }
     } else {
@@ -54,10 +57,4 @@ export const insertLink = (editor, url) => {
     }
 };
 
-export const removeLink = (editor, opts = {}) => {
-    Transforms.unwrapNodes(editor, {
-        ...opts,
-        match: (n) =>
-            !Editor.isEditor(n) && Element.isElement(n) && n.type === "link"
-    });
-};
+export default insertLink
