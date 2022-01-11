@@ -37,7 +37,7 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="md:hidden">
-                    {status != "authenticated" ? <Link href="/auth/sign-in">
+                    {status != "authenticated" ? <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}>
                         <AccountCircle className="text-white"/>
                     </Link> : <Logout className="text-white" onClick={() => signOut()}/>}
                 </div>
@@ -68,7 +68,7 @@ const Header = () => {
 
 
                     <div>
-                        {status != "authenticated" ? <Link href="/auth/sign-in">
+                        {status != "authenticated" ? <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}>
                             <span className="md:float-right mt-2 align-middle text-yellow-400 border-yellow-400 ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Se connecter / Créer un compte
                             </span>

@@ -268,6 +268,7 @@ export const getRessources = async () => {
     }
     description
     title
+    premium
     associatedpost {
       createdAt
       featuredImage {
