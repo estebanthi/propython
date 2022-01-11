@@ -46,6 +46,13 @@ const PremiumWidget = () => {
             </span>
             <div className="flex justify-center items-center flex-col">
                 {session ? (session.user.isPremium ? <button disabled={true} className="inline-block bg-violet-300 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer my-4">Passer Premium</button> : <button className="transition duration-500 transform hover:-translate-y-1 inline-block bg-violet-900 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer my-4"
+                onClick={async() => {
+                    setSpinner(true)
+                    await goPremium(session.user.email)
+                    await signIn("credentials", {email: session.user.email, password: session.user.password, callbackUrl: router.asPath})
+                    setSpinner(false)
+                    setSuccess(true)
+                }}
                 >Passer Premium</button>) : <Link href={{pathname: "/auth/sign-up", query: {getPremium: true}}}><button className="transition duration-500 transform hover:-translate-y-1 inline-block bg-violet-900 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer my-4">Passer Premium</button></Link>}
                 <span><span className="font-bold">{5-count}/5</span> premiums gratuits restants</span>
                 {success ? <div className="w-70 text-center my-4"><span className="text-green-500">Vous êtes maintenant premium ! Vous allez être reconnecté.</span></div> : null}
