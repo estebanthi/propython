@@ -68,7 +68,7 @@ const SignUpForm = () => {
         }
 
         const code = Math.round((Math.random() * (999999-100000) + 100000))
-        var token = await jwt.sign({code: code, username: username, email: email, password: password}, process.env.NEXT_PUBLIC_JWT_SIGN)
+        var token = await jwt.sign({code: code, username: username, email: email, password: password, premium: router.query.getPremium}, process.env.NEXT_PUBLIC_JWT_SIGN)
 
         await axios.post("/api/mail/send-code", {code: code, email: email})
 

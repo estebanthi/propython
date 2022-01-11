@@ -74,12 +74,19 @@ const Header = () => {
                             </span>
                         </Link> : <div className="flex justify-center flex-col text-white font-semibold ml-4">
                             <span >Connecté en tant que {<span className={session.user.isPremium ? "text-violet-300" : "text-yellow-400"}>{session.user.username}</span>}</span>
-                            {session.user.isPremium ? <div>
+                            {session.user.isPremium ? (session.user.premiumExpiration != "unlimited" ? <div>
                                 <span>
                                 Premium jusqu'au
-                                    <span className="text-violet-300">{" "+ new Date(session.user.premiumExpiration).getDate().toString()+"/" + new Date(session.user.premiumExpiration).getMonth() + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
+                                    <span
+                                        className="text-violet-300">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + new Date(session.user.premiumExpiration).getMonth() + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
                                     </span>
-                            </div> : null}
+                            </div> : <div className="text-center">
+                                <span>
+                                Premium
+                                    <span
+                                        className="text-violet-300"> illimité</span>
+                                    </span>
+                            </div>) : null}
                             <button onClick={() => signOut({callbackUrl: router.asPath})} className={"md:float-right mt-2 align-middle font-semibold cursor-pointer border-2 p-2 text-yellow-400 border-yellow-400"}>Se déconnecter</button></div>}
 
                     </div>

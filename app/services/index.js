@@ -313,3 +313,16 @@ export const submitMessage = async (obj) => {
 
     return result;
 }
+
+
+export const countPremiums = async() => {
+    const result = await axios.post("/api/users/check/count-premiums")
+    return result.data.proPythonUsers.length
+}
+
+
+export const goPremium = async(email) => {
+    const result = await axios.post("/api/users/go-premium", {email: email, premium: true})
+    const publishResult = await axios.post("/api/users/publish", {email: email})
+    return publishResult.data
+}

@@ -36,8 +36,8 @@ export default NextAuth({
     secret: process.env.AUTH_HASH_SECRET,
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
-        updateAge: 24 * 60 * 60,
+        maxAge: 24 * 60 * 60,
+        updateAge: 60 * 60,
     },
     callbacks: {
         async jwt({ token, account , user}) {
@@ -45,10 +45,12 @@ export default NextAuth({
             {
                 const since = user.premiumSince
                 const sinceDate = new Date(since)
-                const expirationDate = new Date(sinceDate.setMonth(sinceDate.getMonth()+1))
+                let expirationDate = new Date(sinceDate.setMonth(sinceDate.getMonth()+2))
+                if (user.unlimitedPremium) {expirationDate = "unlimited"}
                 token.username = user.username
                 token.isPremium = user.isPremium
                 token.premiumExpiration = expirationDate
+                token.password = user.password
             }
             return token
         },
@@ -60,7 +62,8 @@ export default NextAuth({
                     email: token.email,
                     isPremium: token.isPremium,
                     id: token.sub,
-                    premiumExpiration: token.premiumExpiration
+                    premiumExpiration: token.premiumExpiration,
+                    password: token.password
                 }
             }
             return session

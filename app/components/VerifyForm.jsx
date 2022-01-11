@@ -19,6 +19,7 @@ const VerifyForm = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [code, setCode] = useState(null)
+    const [premium, setPremium] = useState(false)
 
     const router = useRouter()
 
@@ -30,6 +31,10 @@ const VerifyForm = () => {
         await setEmail(verifiedToken.email)
         await setPassword(verifiedToken.password)
         await setCode(verifiedToken.code)
+        const tempPremium = await verifiedToken.premium
+        if (tempPremium) {
+            setPremium(true)
+        }
     }, [])
 
     const handleSubmission = async () => {
@@ -50,7 +55,7 @@ const VerifyForm = () => {
             return
         }
 
-        const success = await axios.post("/api/users/register", {username: username, email: email, password: password})
+        const success = await axios.post("/api/users/register", {username: username, email: email, password: password, premium: premium, unlimitedPremium: premium})
             .then((result) => result.data.publishProPythonUser)
 
         setSuccess(true)

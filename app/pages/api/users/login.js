@@ -19,6 +19,7 @@ export default async function asynchandler(req, res) {
     username
     isPremium
     premiumSince
+    unlimitedPremium
   }
 }
   `;
@@ -31,9 +32,14 @@ export default async function asynchandler(req, res) {
     if (!userFound) {
         return res.status(200).json("user not found")
     }
-
     const password = userFound.password
-    const check = await compareSync(req.body.password, password)
+
+    let check = false
+    if (password == req.body.password) {
+        check = true
+    } else {
+    check = await compareSync(req.body.password, password)
+    }
 
     if (!check) {
         return res.status(200).json("wrong password")
