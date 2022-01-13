@@ -31,6 +31,7 @@ const TableOfContents = () => {
         const nestedHeadings = [];
 
         headingElements.forEach((heading, index) => {
+            console.log(heading)
             const { innerText: title, id} = heading;
             if (heading.nodeName === "H2") {
                 nestedHeadings.push({ id, title, type:2, items: [] });

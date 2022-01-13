@@ -9,7 +9,7 @@ const Ressources = () => {
 
     return (
         <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-            <h3 className="text-xl mb-8 font-semibold border-b pb-4">Ressources</h3>
+            <h1 className="text-xl mb-8 font-semibold border-b pb-4">Ressources</h1>
             <div>
                 Retrouvez une collection de ressources (des scripts, des fiches résumé, des images...) liées aux articles du blog ou au Python.
             </div>

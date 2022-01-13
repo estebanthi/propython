@@ -18,7 +18,6 @@ const Header = () => {
 
     const router = useRouter()
 
-    console.log(session)
 
     useEffect(() => {
         getCategories().then((newCategories) => {
@@ -52,13 +51,11 @@ const Header = () => {
                             </Link>
                         ))}
                     </div>
-                    <div>
                         <Link href="/ressources">
                             <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer border-2 p-2 ">
                                 Ressources
                             </span>
                         </Link>
-                    </div>
 
                     <Link href="/premium">
                     <span className="md:float-right mt-2 align-middle text-violet-300 ml-4 font-semibold border-2 border-violet-300 cursor-pointer p-2 ">
