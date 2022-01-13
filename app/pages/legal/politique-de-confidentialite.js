@@ -6,7 +6,7 @@ export default function PolitiqueDeConfidentialite() {
 
     return (
         <div className="container mx-auto px-10 py-10 mb-8 bg-white rounded-lg w-1/2">
-                <h1 className="font-bold text-3xl py-6">Politique de confidentialité</h1>
+            <h1 className="font-bold text-4xl my-6">Politique de confidentialité</h1>
                 <p className="py-2">Le site web https://www.propython.fr est détenu par ProPython, qui est un contrôleur de données de vos données personnelles.</p>
 
             <p className="py-2">Nous avons adopté cette politique de confidentialité, qui détermine la manière dont nous traitons les informations collectées par https://www.propython.fr, qui fournit également les raisons pour lesquelles nous devons collecter certaines données personnelles vous concernant. Par conséquent, vous devez lire cette politique de confidentialité avant d'utiliser le site web de https://www.propython.fr.</p>
