@@ -6,7 +6,7 @@ const Spinner = (props) => {
 
     return <Loader
         type="Circles"
-        color="#00BFFF"
+        color={props.color || "#00BFFF"}
         height={30}
         width={30}
         visible={props.visible}

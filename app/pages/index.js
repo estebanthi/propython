@@ -15,7 +15,7 @@ export default function Home({ posts }) {
     <div className="container mx-auto px-10 mb-8">
       <Head>
         <title>ProPython</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
       </Head>
         <FeaturedPosts />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">

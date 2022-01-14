@@ -16,6 +16,7 @@
     "@segment/snippet": "^4.15.3",
     "@sendgrid/mail": "^7.6.0",
     "@slate-editor/link-plugin": "^5.1.0",
+    "@stripe/stripe-js": "^1.22.0",
     "@tailwindcss/line-clamp": "^0.3.0",
     "analytics-node": "^6.0.0",
     "axios": "^0.24.0",
@@ -41,7 +42,8 @@
     "reactjs-popup": "^2.0.5",
     "sass": "^1.43.5",
     "slate": "^0.72.3",
-    "slate-react": "^0.72.1"
+    "slate-react": "^0.72.1",
+    "stripe": "^8.197.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
