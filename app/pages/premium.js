@@ -1,11 +1,12 @@
 import {Layout} from "../components";
 import React from "react";
 import SideLayout from "../components/SideLayout";
+import BuyCard from "../components/BuyCard";
 
 
 const PremiumPage = () => {
 
-    const dispo = false
+    const dispo = true
 
     if (dispo) {return (
         <div>
@@ -13,13 +14,16 @@ const PremiumPage = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
                         <div className="lg:col-span-8 col-span-1">
-                            <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
-                                <h1 className="text-3xl font-bold">Pourquoi devenir premium ?</h1>
-                                <div>
-                                    <h2 className="text-2xl font-semibold mt-20">1. Des articles inédits</h2>
-                                    <div className="my-4">
-                                        <p>Découvrez des articles réservés aux membres premium. En voici quelques uns :</p>
-                                    </div>
+                            <div className="bg-white shadow-lg rounded-lg p-0 p-4 lg:p-8 pb-12 mb-8">
+                                <h1 className="text-3xl font-bold py-4">Devenir premium</h1>
+                                <p className="text-lg font-medium py-2">Devenir premium sur ProPython, c'est accéder à des articles et des ressources exclusifs pour progresser, mais c'est également soutenir le site et la création de contenus.</p>
+                            </div>
+                            <div className="flex justify-between flex-col-reverse lg:flex-row">
+                                <BuyCard />
+                                <div className="bg-white p-8 rounded-lg lg:w-1/2 lg:my-0 my-8">
+                                    <h2 className="text-xl font-semibold">Pourquoi cette offre ?</h2>
+                                    <p className="my-4">ProPython est un site dont la première vocation est d'enseigner des choses au grand public, c'est pourquoi je m'efforce de produire du contenu gratuit</p>
+                                    <p className="my-4">En revanche, la création de contenu ainsi que la maintenance du site sont très chronophages. Proposer une option payante est donc un moyen de continuer à faire vivre le site et la création de contenu.</p>
                                 </div>
                             </div>
                         </div>
