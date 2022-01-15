@@ -64,7 +64,8 @@ const PostDetail = ({post}) => {
         let result
         switch (type) {
             case 2:
-                result = <h1 className="text-3xl font-semibold mb-4" id={counter}>{children}</h1>
+                result = <h1 className="text-3xl font-semibold mb-4"
+                             id={counter}>{children}</h1>
                 break
             case 3:
                 result = <h2 className="text-2xl font-semibold mb-4" id={counter}>{children}</h2>

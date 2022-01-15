@@ -1,8 +1,11 @@
 import {Switch} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {loadStripe} from "@stripe/stripe-js";
 import axios from "axios";
 import Spinner from "./Spinner";
+import {getSession, signIn} from "next-auth/react";
+import {useRouter} from "next/router";
+import Link from "next/link"
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = loadStripe(publishableKey);
@@ -11,9 +14,17 @@ const BuyCard = () => {
 
     const [selected, setSelected] = useState(false)
     const [spinner, setSpinner] = useState(false)
+    const [session, setSession] = useState()
+    const router = useRouter()
+
+    useEffect(async () => {
+        const session = await getSession()
+        setSession(session)
+    }, [])
 
     const createCheckOutSession = async () => {
         setSpinner(true)
+
         const stripe = await stripePromise;
 
         const item = {
@@ -43,7 +54,7 @@ const BuyCard = () => {
                 <p className="my-3 border-b-2 border-blue-900">Des ressources <b>premium</b></p>
                 <p className="my-3 border-b-2 border-blue-900">De nouveaux <b>projets</b></p>
                 <p className="my-3 border-b-2 border-blue-900">Des <b>vidéos</b> explicatives</p>
-                <button onClick={createCheckOutSession} className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Passer premium (1 mois)</button>
+                {session ? <button onClick={createCheckOutSession} className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Passer premium (1 mois)</button> : <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}><button className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Se connecter</button></Link>}
                 {spinner && <div className="mt-2"><Spinner color="#4C1D95"/></div>}
             </div>
         </div>
