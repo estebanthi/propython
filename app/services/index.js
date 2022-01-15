@@ -334,3 +334,31 @@ export const goPremiumLimited = async (email) => {
     const publishResult = await axios.post("/api/users/publish", {email: email})
     return publishResult.data
 }
+
+
+export const getGroups = async (slug) => {
+    const query = gql`
+    query MyQuery {
+  groupsConnection(where: {category: {slug: "formations"}}) {
+    edges {
+      node {
+        id
+        description
+        title
+        posts {
+          excerpt
+          premium
+          prerequis
+          slug
+          title
+        }
+      }
+    }
+  }
+}
+
+  `;
+
+    const result = await request(graphqlAPI, query, {slug});
+    return result.groupsConnection.edges
+}
