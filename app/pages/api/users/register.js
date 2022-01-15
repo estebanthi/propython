@@ -14,20 +14,36 @@ export default async function asynchandler(req, res) {
     const salt = genSaltSync(10)
     const hashedPassword = hashSync(req.body.password, salt)
 
-    const query = gql`
+
+    if (req.body.unlimitedPremium) {
+        const query = gql`
     mutation CreateProPythonUser($username: String!, $email: String!, $password: String!, $isPremium: Boolean!, $premiumSince: Date!, $unlimitedPremium: Boolean!) {
       createProPythonUser(data: {username: $username, email: $email, password: $password, isPremium: $isPremium, premiumSince: $premiumSince, unlimitedPremium: $unlimitedPremium}) { id }
     }
   `;
-    const now = new Date(Date.now())
-    const createQueryResult = await graphQLClient.request(query, {
-        username: req.body.username,
-        email: req.body.email,
-        password: hashedPassword,
-        isPremium: req.body.premium,
-        unlimitedPremium: req.body.unlimitedPremium,
-        premiumSince: now,
-    });
+        const now = new Date(Date.now())
+        const createQueryResult = await graphQLClient.request(query, {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+            isPremium: req.body.premium,
+            unlimitedPremium: req.body.unlimitedPremium,
+            premiumSince: now,
+        });
+    } else {
+        const query = gql`
+    mutation CreateProPythonUser($username: String!, $email: String!, $password: String!, $isPremium: Boolean!, $unlimitedPremium: Boolean!) {
+      createProPythonUser(data: {username: $username, email: $email, password: $password, isPremium: $isPremium, unlimitedPremium: $unlimitedPremium}) { id }
+    }
+  `;
+        const createQueryResult = await graphQLClient.request(query, {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+            isPremium: false,
+            unlimitedPremium: false,
+        });
+    }
 
 
     const publishQuery = gql`

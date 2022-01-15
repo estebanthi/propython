@@ -327,3 +327,10 @@ export const goPremium = async(email) => {
     const publishResult = await axios.post("/api/users/publish", {email: email})
     return publishResult.data
 }
+
+
+export const goPremiumLimited = async (email) => {
+    const result = await axios.post("/api/users/go-premium-limited", {email: email, premium: true})
+    const publishResult = await axios.post("/api/users/publish", {email: email})
+    return publishResult.data
+}

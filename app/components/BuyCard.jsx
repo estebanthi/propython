@@ -45,7 +45,6 @@ const BuyCard = () => {
         setSpinner(false)
     };
 
-
     return (
         <div className="bg-white p-8 rounded-lg">
             <div className="flex flex-col justify-center items-center">
@@ -54,7 +53,9 @@ const BuyCard = () => {
                 <p className="my-3 border-b-2 border-blue-900">Des ressources <b>premium</b></p>
                 <p className="my-3 border-b-2 border-blue-900">De nouveaux <b>projets</b></p>
                 <p className="my-3 border-b-2 border-blue-900">Des <b>vidéos</b> explicatives</p>
-                {session ? <button onClick={createCheckOutSession} className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Passer premium (1 mois)</button> : <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}><button className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Se connecter</button></Link>}
+                    {session ? (session.user.isPremium ? (session.user.premiumExpiration == "unlimited" ? <button className="my-3 bg-violet-300 text-white font-bold p-4 rounded-lg">Renouveler mon abonnement</button> : <button onClick={createCheckOutSession} className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Renouveler mon abonnement</button>) :
+                        <button onClick={createCheckOutSession} className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Passer premium (1 mois)</button>) :
+                        <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}><button className="my-3 bg-violet-900 text-white font-bold p-4 rounded-lg">Se connecter</button></Link>}
                 {spinner && <div className="mt-2"><Spinner color="#4C1D95"/></div>}
             </div>
         </div>

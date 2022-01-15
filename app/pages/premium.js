@@ -16,7 +16,7 @@ const PremiumPage = () => {
                         <div className="lg:col-span-8 col-span-1">
                             <div className="bg-white shadow-lg rounded-lg p-0 p-4 lg:p-8 pb-12 mb-8">
                                 <h1 className="text-3xl font-bold py-4">Devenir premium</h1>
-                                <p className="text-lg font-medium py-2">Devenir premium sur ProPython, c'est accéder à des articles exclusifs et des ressources inédites pour progresser, c'est aussi bénéficier d'un accompagnement personnalisé et de vidéos explicatives, mais c'est également soutenir le site et la création de contenus.</p>
+                                <p className="text-lg font-medium font-semibold py-2">Devenir premium sur ProPython, c'est accéder à des articles exclusifs et des ressources inédites pour progresser, c'est aussi bénéficier d'un accompagnement personnalisé et de vidéos explicatives, mais c'est également soutenir le site et la création de contenus.</p>
                             </div>
                             <div className="flex justify-between flex-col-reverse lg:flex-row">
                                 <BuyCard />

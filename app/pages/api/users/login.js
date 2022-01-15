@@ -20,6 +20,7 @@ export default async function asynchandler(req, res) {
     isPremium
     premiumSince
     unlimitedPremium
+    premiumUntil
   }
 }
   `;

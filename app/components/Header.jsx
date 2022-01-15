@@ -6,7 +6,7 @@ import {AccountCircle} from "@material-ui/icons";
 import {useSession} from "next-auth/react";
 
 import {signOut} from "next-auth/react";
-import {Logout} from "@mui/icons-material";
+import {Logout, WorkspacePremium} from "@mui/icons-material";
 import {useRouter} from "next/router"
 
 
@@ -35,10 +35,25 @@ const Header = () => {
                         </span>
                     </Link>
                 </div>
-                <div className="md:hidden">
+                <div className="flex md:hidden items-center text-violet-300">
+                    <div className="flex border-2 border-violet-300 mx-4 items-center content-center p-2">
+                    <div className="">
+                        {<Link href="/premium">
+                            <WorkspacePremium/>
+                        </Link>}
+                    </div>
+                    <div>
+                        {session ? (session.user.isPremium ? <div>
+                                    <span
+                                        className="font-bold">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + new Date(session.user.premiumExpiration).getMonth() + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
+                        </div> : null ) : null}
+                    </div>
+                    </div>
+                <div>
                     {status != "authenticated" ? <Link href={{pathname: "/auth/sign-in", query: {callbackUrl: router.asPath}}}>
                         <AccountCircle className="text-white"/>
                     </Link> : <Logout className="text-white" onClick={() => signOut()}/>}
+                </div>
                 </div>
                 <div className="hidden md:flex items-center justify-end h-20">
 

@@ -43,9 +43,8 @@ export default NextAuth({
         async jwt({ token, account , user}) {
             if (user)
             {
-                const since = user.premiumSince
-                const sinceDate = new Date(since)
-                let expirationDate = new Date(sinceDate.setMonth(sinceDate.getMonth()+2))
+
+                let expirationDate = new Date(user.premiumUntil)
                 if (user.unlimitedPremium) {expirationDate = "unlimited"}
                 token.username = user.username
                 token.isPremium = user.isPremium
