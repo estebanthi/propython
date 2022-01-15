@@ -345,6 +345,14 @@ export const getGroups = async (slug) => {
         id
         description
         title
+        prerequis
+        difficulty
+        createdAt
+        slug
+        image {
+        url
+        }
+        createdAt
         posts {
           excerpt
           premium
@@ -360,5 +368,65 @@ export const getGroups = async (slug) => {
   `;
 
     const result = await request(graphqlAPI, query, {slug});
-    return result.groupsConnection.edges
+    const sortedResult = await result.groupsConnection.edges.sort((a, b) => {
+        if (a.createdAt < b.createdAt) {
+            return 1
+        }
+        return -1
+    })
+    return sortedResult
+}
+
+
+export const getGroupsPosts = async (slug) => {
+    const query = gql`
+    query MyQuery($slug: String!) {
+  groupsConnection(where: {slug: $slug}) {
+    edges {
+      node {
+        id
+        description
+        title
+        image {
+        url
+        }
+        createdAt
+        posts {
+          createdAt
+            slug
+            title
+            excerpt
+            difficulty
+            prerequis
+            premium
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+        }
+      }
+    }
+  }
+}
+
+  `;
+    const result = await request(graphqlAPI, query, {slug});
+    return result.groupsConnection.edges[0].node.posts
+};
+
+
+export const getGroupsPaths = async () => {
+    const query = gql`
+    query GetGroups {
+    groups {
+    title
+    slug
+    }
+    }
+    `
+    const result = await request(graphqlAPI, query);
+    return result.groups;
 }
