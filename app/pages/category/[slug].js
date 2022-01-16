@@ -9,19 +9,19 @@ import GroupCard from "../../components/GroupCard";
 
 const CategoryPost = ({ posts, groups }) => {
 
-    const soloPosts = posts.filter((post) => {
+    const filterPosts = (posts) => {
+        return posts.filter((post) => {
 
-        const found = groups.map((group) => {
+            const found = groups.map((group) => {
 
-            const titleValues = group.node.posts.map(({title}) => title)
-            if (titleValues.includes(post.node.title)) {
-                return true
-            }
+                const titleValues = group.node.posts.map(({title}) => title)
+                if (titleValues.includes(post.node.title)) {
+                    return true
+                }
+            })
+            return !found.includes(true)
         })
-        return !found.includes(true)
-    })
-
-
+    }
 
 
     const router = useRouter();
@@ -37,7 +37,7 @@ const CategoryPost = ({ posts, groups }) => {
                     {groups.map((group, index) => {
                         return <GroupCard key={index} group={group.node}/>
                     })}
-                    {soloPosts.map((post, index) => (
+                    {filterPosts(posts).map((post, index) => (
                         <PostCard key={index} post={post.node} />
                     ))}
                 </div>

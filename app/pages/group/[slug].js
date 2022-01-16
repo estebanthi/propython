@@ -48,6 +48,7 @@ export async function getStaticProps({ params }) {
 // The HTML is generated at build time and will be reused on each request.
 export async function getStaticPaths() {
     const groups = await getGroupsPaths();
+    console.log(groups)
     return {
         paths: groups.map(({ slug }) => ({ params: { slug } })),
         fallback: true,
