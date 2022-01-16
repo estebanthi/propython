@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import {getCategories, getCategoryPost, getGroups} from '../../services';
+import {getCategories, getCategoryPost, getGroups, getGroupsPaths} from '../../services';
 import {PostCard, Categories, Loader, Layout} from '../../components';
 import Home from "../index";
 import SideLayout from "../../components/SideLayout";
@@ -35,7 +35,6 @@ const CategoryPost = ({ posts, groups }) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-8">
                     {groups.map((group, index) => {
-                        console.log(group)
                         return <GroupCard key={index} group={group.node}/>
                     })}
                     {soloPosts.map((post, index) => (
@@ -66,8 +65,9 @@ export async function getStaticProps({ params }) {
 // The HTML is generated at build time and will be reused on each request.
 export async function getStaticPaths() {
     const categories = await getCategories();
+    const groups = await getGroupsPaths()
     return {
-        paths: categories.map(({ slug }) => ({ params: { slug } })),
+        paths: [...categories.map(({ slug }) => ({ params: { slug } })), ...groups.map(({ slug }) => ({ params: { slug } }))],
         fallback: true,
     };
 }
