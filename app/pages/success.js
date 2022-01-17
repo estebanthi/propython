@@ -37,7 +37,7 @@ const Success = () => {
             setSuccess(true)
             setLoaded(true)
             await goPremiumLimited(session.user.email)
-            await signIn("credentials", {email: session.user.email, password: session.user.password, callbackUrl: "/"})
+            await signIn("credentials", {email: "blabla", password: session.user.password, callbackUrl: "/"})
         }
         }
     }, [session_id]);
