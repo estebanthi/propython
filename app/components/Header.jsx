@@ -45,7 +45,7 @@ const Header = () => {
                     <div>
                         {session ? (session.user.isPremium ? <div>
                                     <span
-                                        className="font-bold">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + new Date(session.user.premiumExpiration).getMonth() + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
+                                        className="font-bold">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + ((new Date(session.user.premiumExpiration).getMonth())+1) + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
                         </div> : null ) : null}
                     </div>
                     </div>
