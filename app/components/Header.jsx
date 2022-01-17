@@ -90,7 +90,7 @@ const Header = () => {
                                 <span>
                                 Premium jusqu'au
                                     <span
-                                        className="text-violet-300">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + new Date(session.user.premiumExpiration).getMonth() + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
+                                        className="text-violet-300">{" " + new Date(session.user.premiumExpiration).getDate().toString() + "/" + ((new Date(session.user.premiumExpiration).getMonth())+1) + "/" + new Date(session.user.premiumExpiration).getFullYear()}</span>
                                     </span>
                             </div> : <div className="text-center">
                                 <span>

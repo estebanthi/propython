@@ -47,7 +47,18 @@ export default NextAuth({
                 let expirationDate = new Date(user.premiumUntil)
                 if (user.unlimitedPremium) {expirationDate = "unlimited"}
                 token.username = user.username
-                token.isPremium = user.isPremium
+                if (expirationDate != "unlimited") {
+                    const today = new Date()
+                    if (today > expirationDate) {
+                        token.isPremium = false
+
+                    } else {
+                        token.isPremium = true
+                    }
+                }
+                else {
+                    token.isPremium = user.isPremium
+                }
                 token.premiumExpiration = expirationDate
                 token.password = user.password
             }
