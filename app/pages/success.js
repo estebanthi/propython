@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {goPremiumLimited} from "../services";
-import {getSession, signIn} from "next-auth/react";
+import {getSession, signIn, signOut} from "next-auth/react";
 import Image from "next/image";
 import NoHeaderLayout from "../components/NoHeaderLayout";
 import SignInPage from "./auth/sign-in";
@@ -37,7 +37,9 @@ const Success = () => {
             setSuccess(true)
             setLoaded(true)
             await goPremiumLimited(session.user.email)
+                .then(() => console.log(session))
                 .then(() => signIn("credentials", {email: session.user.email, password: session.user.password, callbackUrl: "/"}))
+                .then(() => console.log(session))
         }
         }
     }, [session_id]);
