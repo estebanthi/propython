@@ -6,7 +6,7 @@ import {getRecentPosts, getSimilarPosts} from "../services";
 const LinkedArticle = ({post}) => {
 
     return (
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <div className="bg-white shadow-lg rounded-lg p-4 w-96">
             <h3 className="transition duration-700 text-left cursor-pointer hover:text-pink-600 text-xl font-semibold">
                Article lié
             </h3>

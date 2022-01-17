@@ -47,4 +47,8 @@ const parseType = (fileName) => {
         return 'application/x-python-code'
     }
 
+    if (fileName.includes(".csv")) {
+        return 'application/csv'
+    }
+
 }
