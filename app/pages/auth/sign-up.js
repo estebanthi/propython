@@ -1,12 +1,16 @@
 import React from "react";
 import NoHeaderLayout from "../../components/NoHeaderLayout";
 import SignUpForm from "../../components/SignUpForm";
-
+import Head from "next/head";
 
 const SignUpPage = () => {
 
     return (
         <div className="mb-20">
+            <Head>
+                <title>Créer un compte - ProPython
+                </title>
+            </Head>
             <SignUpForm />
         </div>
     )

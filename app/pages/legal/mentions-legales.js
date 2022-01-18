@@ -1,12 +1,15 @@
 import {Layout} from "../../components";
 import React from "react";
 import RessourcesPage from "../ressources";
-
+import Head from "next/head";
 
 export default function MentionsLegales() {
 
     return (
         <div className="container mx-auto px-10 py-10 mb-8 bg-white rounded-lg w-1/2">
+            <Head>
+                <title>Mentions légales</title>
+            </Head>
             <h1 className="font-bold text-4xl my-6">Mentions légales</h1>
             <p className="py-2">
                 ProPython est un site édité par Mr Esteban Thilliez, dont l'auto entreprise est immatriculée sous le numéro 883 603 912 et ayant son siège social situé 114 rue du Bas Pommereau, 59 249 AUBERS.

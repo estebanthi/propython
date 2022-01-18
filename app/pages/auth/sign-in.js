@@ -2,12 +2,16 @@ import SignInForm from "../../components/SignInForm";
 import React from "react";
 import NoHeaderLayout from "../../components/NoHeaderLayout";
 import {getRessources} from "../../services";
+import Head from "next/head";
 
 
 const SignInPage = () => {
 
     return (
         <div className="flex justify-center mb-20">
+            <Head>
+                <title>Se connecter - ProPython</title>
+            </Head>
             <SignInForm/>
         </div>
     )

@@ -1,11 +1,14 @@
 import {Layout} from "../../components";
 import React from "react";
-
+import Head from "next/head";
 
 export default function ConditionsGeneralesDeVente() {
 
     return (
         <div className="container mx-auto px-10 py-10 mb-8 bg-white rounded-lg w-1/2">
+            <Head>
+                <title>Conditions générales de vente - ProPython</title>
+            </Head>
             <h1 className="font-bold text-4xl my-6">Conditions générales de vente des produits vendus sur ProPython</h1>
 
             <h2 className="text-3xl font-bold py-6">Article 1 - Objet</h2>

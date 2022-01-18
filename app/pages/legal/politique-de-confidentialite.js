@@ -1,11 +1,13 @@
 import {Layout} from "../../components";
 import React from "react";
-
+import Head from "next/head";
 
 export default function PolitiqueDeConfidentialite() {
 
     return (
         <div className="container mx-auto px-10 py-10 mb-8 bg-white rounded-lg w-1/2">
+            <Head><title>Politique de confidentialité</title></Head>
+
             <h1 className="font-bold text-4xl my-6">Politique de confidentialité</h1>
                 <p className="py-2">Le site web https://www.propython.fr est détenu par ProPython, qui est un contrôleur de données de vos données personnelles.</p>
 
