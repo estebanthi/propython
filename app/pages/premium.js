@@ -1,10 +1,11 @@
-import {Layout} from "../components";
+import {Layout, PostCard} from "../components";
 import React from "react";
 import SideLayout from "../components/SideLayout";
 import BuyCard from "../components/BuyCard";
+import {getPosts, getPremiumPosts} from "../services";
 
 
-const PremiumPage = () => {
+const PremiumPage = ({posts}) => {
 
     const dispo = true
 
@@ -26,8 +27,11 @@ const PremiumPage = () => {
                                     <p className="my-4">En revanche, la création de contenu ainsi que la maintenance du site sont très chronophages. Proposer une option payante est donc un moyen de continuer à faire vivre le site et la création de contenu.</p>
                                 </div>
                             </div>
+                                <h1 className="text-3xl bg-white rounded-lg font-bold p-8 mt-20 mb-10">Les Articles Premium</h1>
+                            {posts.map((post, index) => (
+                                <PostCard post={post.node} key={post.title} />
+                            ))}
                         </div>
-
 
                         <div className="lg:col-span-4 col-span-1">
                             <div className="lg:sticky relative top-8">
@@ -58,4 +62,13 @@ PremiumPage.getLayout = function getLayout(page) {
         </Layout>
     )
 
+}
+
+
+export async function getStaticProps() {
+    const posts = (await getPremiumPosts()) || [];
+
+    return {
+        props: { posts }
+    }
 }

@@ -430,3 +430,48 @@ export const getGroupsPaths = async () => {
     const result = await request(graphqlAPI, query);
     return result.groups;
 }
+
+
+export const getPremiumPosts = async () => {
+    const query = gql`
+    query MyQuery {
+  postsConnection(where: {premium: true}) {
+    edges {
+      node {
+        author {
+          bio
+          name
+          id
+            photo {
+                url
+            }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        difficulty
+        prerequis
+        premium
+        featuredImage {
+          url
+        }
+        categories {
+          name
+          slug
+        }
+      }
+    }
+  }
+}   
+    `
+
+    const result = await request(graphqlAPI, query);
+    const sortedResult = await result.postsConnection.edges.sort((a, b) => {
+        if (a.createdAt < b.createdAt) {
+            return 1
+        }
+        return -1
+    })
+    return sortedResult;
+}
