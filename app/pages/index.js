@@ -15,6 +15,7 @@ export default function Home({ posts }) {
     <div className="container mx-auto px-10 mb-8">
       <Head>
         <title>ProPython</title>
+          <meta name="description" content="Retrouvez sue ProPython tout ce dont vous avez besoin pour apprendre le Python. Que vous soyez débutant ou expert, vous trouverez ici tout type de contenu !"/>
         <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
       </Head>
         <FeaturedPosts />

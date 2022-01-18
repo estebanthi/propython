@@ -6,8 +6,9 @@ import {PostCard, Categories, Loader, Layout} from '../../components';
 import Home from "../index";
 import SideLayout from "../../components/SideLayout";
 import GroupCard from "../../components/GroupCard";
+import Head from "next/head";
 
-const CategoryPost = ({ posts, groups }) => {
+const CategoryPost = ({ posts, groups, slug }) => {
 
     const filterPosts = (posts) => {
         return posts.filter((post) => {
@@ -32,6 +33,13 @@ const CategoryPost = ({ posts, groups }) => {
 
     return (
         <div className="container mx-auto px-10 mb-8">
+            <Head>
+                <title>
+                    {slug.split(' ')
+                        .map(w => w[0].toUpperCase() + w.substring(1).toLowerCase())
+                        .join(' ')}
+                </title>
+            </Head>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-8">
                     {groups.map((group, index) => {
@@ -56,8 +64,9 @@ export default CategoryPost;
 export async function getStaticProps({ params }) {
     const posts = await getCategoryPost(params.slug);
     const groups = await getGroups(params.slug)
+    const slug = params.slug
     return {
-        props: { posts, groups },
+        props: { posts, groups, slug },
     };
 }
 

@@ -3,6 +3,7 @@ import React from "react";
 import SideLayout from "../components/SideLayout";
 import BuyCard from "../components/BuyCard";
 import {getPosts, getPremiumPosts} from "../services";
+import Head from "next/head";
 
 
 const PremiumPage = ({posts}) => {
@@ -11,6 +12,10 @@ const PremiumPage = ({posts}) => {
 
     if (dispo) {return (
         <div>
+            <Head>
+                <title>Premium - ProPython</title>
+                <meta name="description" content="Passez premium et accélérez votre apprentissage avec du contenu inédit. Découvrez de réelles applications et de vrais projets afin de consolider vos connaissances."/>
+            </Head>
             <div className="container mx-auto px-10 mb-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 

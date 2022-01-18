@@ -12,7 +12,8 @@ const RessourcesPage = ({ressources}) => {
     return (
         <div className="container mx-auto px-10 mb-8">
             <Head>
-                <title>ProPython - Ressources</title>
+                <title>Ressources - ProPython</title>
+                <meta name="description" content="Retrouvez ici toutes les ressources dont vous avez besoin lors de votre apprentissage du Python sur ProPython !"/>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
                     {ressources.map((ressource, index) => (
