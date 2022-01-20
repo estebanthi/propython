@@ -1,5 +1,6 @@
 import { GraphQLClient, gql } from 'graphql-request';
 import axios from "axios";
+import {checkAppAuthorization} from "../../utils";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
@@ -10,6 +11,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 // export a default function for API route to work
 export default async function asynchandler(req, res) {
+  if (!checkAppAuthorization(req)) { return res.status(403).json("Access denied") }
   const graphQLClient = new GraphQLClient((graphqlAPI), {
     headers: {
       authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
@@ -42,7 +44,7 @@ export default async function asynchandler(req, res) {
     id: result.createComment.id
   });
 
-  const notifyAdmin = await axios.post(process.env.NEXT_PUBLIC_BASE_URL+"/api/mail/notify-admin/new-comment", {slug: req.body.slug, userId: req.body.userId, comment: req.body.comment, username:req.body.username})
+  const notifyAdmin = await axios.post(process.env.NEXT_PUBLIC_BASE_URL+"/api/mail/notify-admin/new-comment", {slug: req.body.slug, userId: req.body.userId, comment: req.body.comment, username:req.body.username}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
 
   return res.status(200).send(publishResult);
 }

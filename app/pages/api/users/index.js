@@ -1,4 +1,5 @@
 import { GraphQLClient, gql } from 'graphql-request';
+import {checkAppAuthorization} from "../../../utils";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
@@ -9,6 +10,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 // export a default function for API route to work
 export default async function asynchandler(req, res) {
+    if (!checkAppAuthorization(req)) { return res.status(403).json("Access denied") }
     const graphQLClient = new GraphQLClient((graphqlAPI), {
         headers: {
             authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,

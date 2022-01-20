@@ -51,7 +51,7 @@ const SignUpForm = () => {
         setSpinner(true)
 
 
-        let userFound = await axios.post("/api/users/check/email", {email: email})
+        let userFound = await axios.post("/api/users/check/email", {email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then((result) => result.data.proPythonUser)
         if (userFound) {
             setEmailTakenError(true)
@@ -59,7 +59,7 @@ const SignUpForm = () => {
             return
         }
 
-        userFound = await axios.post("/api/users/check/username", {username: username})
+        userFound = await axios.post("/api/users/check/username", {username: username}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then((result) => result.data.proPythonUser)
         if (userFound) {
             setUsernameTakenError(true)
@@ -70,7 +70,7 @@ const SignUpForm = () => {
         const code = Math.round((Math.random() * (999999-100000) + 100000))
         var token = await jwt.sign({code: code, username: username, email: email, password: password, premium: router.query.getPremium}, process.env.NEXT_PUBLIC_JWT_SIGN)
 
-        await axios.post("/api/mail/send-code", {code: code, email: email})
+        await axios.post("/api/mail/send-code", {code: code, email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
 
         await router.push({pathname: "/auth/verify", query: {token: JSON.stringify(token), callbackUrl: router.query.callbackUrl}})
 

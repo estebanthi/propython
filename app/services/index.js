@@ -176,6 +176,7 @@ export const submitComment = async (obj) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "authorization": process.env.NEXT_PUBLIC_APP_AUTHORIZATION
         },
         body: JSON.stringify(obj),
     })
@@ -188,6 +189,7 @@ export const submitUser = async (obj) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "authorization": process.env.NEXT_PUBLIC_APP_AUTHORIZATION
         },
         body: JSON.stringify(obj),
     })
@@ -295,7 +297,7 @@ export const getRessources = async () => {
 
 
 export const submitDownload = async (id) => {
-    const result = await axios.get("/api/download", {params: {id: id}})
+    const result = await axios.get("/api/download", {params: {id: id}}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
     return result
 }
 
@@ -305,6 +307,7 @@ export const submitMessage = async (obj) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "authorization": process.env.NEXT_PUBLIC_APP_AUTHORIZATION
         },
         body: JSON.stringify(obj),
     })
@@ -317,21 +320,21 @@ export const submitMessage = async (obj) => {
 
 
 export const countPremiums = async() => {
-    const result = await axios.post("/api/users/check/count-premiums")
+    const result = await axios.post("/api/users/check/count-premiums", {}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
     return result.data.proPythonUsers.length
 }
 
 
 export const goPremium = async(email) => {
-    const result = await axios.post("/api/users/go-premium", {email: email, premium: true})
-    const publishResult = await axios.post("/api/users/publish", {email: email})
+    const result = await axios.post("/api/users/go-premium", {email: email, premium: true}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
+    const publishResult = await axios.post("/api/users/publish", {email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
     return publishResult.data
 }
 
 
 export const goPremiumLimited = async (email) => {
-    const result = await axios.post("/api/users/go-premium-limited", {email: email, premium: true})
-    const publishResult = await axios.post("/api/users/publish", {email: email})
+    const result = await axios.post("/api/users/go-premium-limited", {email: email, premium: true}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
+    const publishResult = await axios.post("/api/users/publish", {email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
     return publishResult.data
 }
 

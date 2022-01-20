@@ -35,7 +35,7 @@ const NewPasswordForm = () => {
         setSecondSpinner(true)
 
         const code = Math.round((Math.random() * (999999-100000) + 100000))
-        await axios.post("/api/mail/send-code-forgot", {code: code, email: emailV})
+        await axios.post("/api/mail/send-code-forgot", {code: code, email: emailV}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then(() => setCodeSent(code))
             .then(() => setSecondSpinner(false))
             .then(() => setSuccessMessage(true))
@@ -64,7 +64,7 @@ const NewPasswordForm = () => {
 
         setSecondSpinner(true)
 
-        await axios.post("/api/users/new-password", {newPassword: password, email: emailV})
+        await axios.post("/api/users/new-password", {newPassword: password, email: emailV}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then(() => setPasswordChanged(true))
             .then(() => signIn("credentials", {email: emailV, password: password, callbackUrl:(router.query.callbackUrl ? process.env.NEXT_PUBLIC_BASE_URL+router.query.callbackUrl : process.env.NEXT_PUBLIC_BASE_URL)}))
 
@@ -93,7 +93,7 @@ const NewPasswordForm = () => {
         setSpinner(true)
 
 
-        let userFound = await axios.post("/api/users/check/email", {email: email})
+        let userFound = await axios.post("/api/users/check/email", {email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then((result) => result.data.proPythonUser)
         if (!userFound) {
             setEmailNotFoundError(true)
@@ -104,7 +104,7 @@ const NewPasswordForm = () => {
         setEmailV(email)
 
         const code = Math.round((Math.random() * (999999-100000) + 100000))
-        await axios.post("/api/mail/send-code-forgot", {code: code, email: email})
+        await axios.post("/api/mail/send-code-forgot", {code: code, email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then(() => setCodeSent(code))
             .then(() => setSpinner(false))
             .then(() => setSuccess(true))

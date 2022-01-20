@@ -1,7 +1,10 @@
 import sgMail from '@sendgrid/mail'
+import {checkAppAuthorization} from "../../../../utils";
 
 
 export default async function asynchandler(req, res) {
+
+    if (!checkAppAuthorization(req)) { return res.status(403).json("Access denied") }
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 

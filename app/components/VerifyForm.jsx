@@ -55,7 +55,7 @@ const VerifyForm = () => {
             return
         }
 
-        const success = await axios.post("/api/users/register", {username: username, email: email, password: password, premium: premium, unlimitedPremium: premium})
+        const success = await axios.post("/api/users/register", {username: username, email: email, password: password, premium: premium, unlimitedPremium: premium}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
             .then((result) => result.data.publishProPythonUser)
 
         setSuccess(true)
@@ -69,7 +69,7 @@ const VerifyForm = () => {
         setSpinner(true)
         const newCode = Math.round((Math.random() * (999999-100000) + 100000))
         setCode(newCode)
-        await axios.post("/api/mail/send-code", {code: newCode, email: email})
+        await axios.post("/api/mail/send-code", {code: newCode, email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
         setSendNewMessage(true)
         setSpinner(false)
     }

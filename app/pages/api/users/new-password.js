@@ -1,10 +1,12 @@
 import {gql, GraphQLClient} from "graphql-request";
 import {genSaltSync, hashSync} from "bcrypt";
 import axios from "axios";
+import {checkAppAuthorization} from "../../../utils";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export default async function asynchandler(req, res) {
+    if (!checkAppAuthorization(req)) { return res.status(403).json("Access denied") }
     const graphQLClient = new GraphQLClient((graphqlAPI), {
         headers: {
             authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
