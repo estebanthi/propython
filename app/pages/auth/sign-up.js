@@ -6,7 +6,7 @@ import Head from "next/head";
 const SignUpPage = () => {
 
     return (
-        <div className="mb-20">
+        <div className="my-10">
             <Head>
                 <title>Créer un compte - ProPython
                 </title>

@@ -8,7 +8,7 @@ export default async function asynchandler(req, res) {
     const msg = {
         to: req.body.email, // Change to your recipient
         from: process.env.NEXT_PUBLIC_ADMIN_EMAIL, // Change to your verified sender
-        templateId: "d-b1755b3a7e3549749db2393f42f94cbe",
+        templateId: "d-8d003c6eb4314bae9bf5e1c9500a4c71",
         dynamic_template_data: {code: req.body.code}
     }
     return await sgMail
