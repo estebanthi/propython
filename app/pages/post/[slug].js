@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 
-import {getPosts, getPostDetails, getPostsDetails} from "../../services";
+import {getPosts, getPostDetails, getPostsDetails, getGroups, getPreviousNextPosts} from "../../services";
 import {
     PostDetail,
     Categories,
@@ -21,6 +21,7 @@ import PremiumWidget from "../../components/PremiumWidget";
 import Ressources from "../../components/Ressources";
 import SideLayout from "../../components/SideLayout";
 import {getSession, useSession} from "next-auth/react";
+import PreviousNextArticles from "../../components/PreviousNextArticles";
 
 
 var Analytics = require('analytics-node');
@@ -56,6 +57,7 @@ const PostDetails = ({post}) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-8">
                     <PostDetail post={post}/>
+                    <PreviousNextArticles slug={post.slug} />
                     <CommentsForm slug={post.slug}/>
                     <Comments slug={post.slug}/>
                 </div>

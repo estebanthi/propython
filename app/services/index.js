@@ -351,6 +351,7 @@ export const getGroups = async (slug) => {
         prerequis
         difficulty
         createdAt
+        premium
         slug
         image {
         url
@@ -477,4 +478,40 @@ export const getPremiumPosts = async () => {
         return -1
     })
     return sortedResult;
+}
+
+
+export const getPreviousNextPosts = async (slug) => {
+    const query = gql`
+    query MyQuery($slug: String!) {
+  groups(where: {posts_some: {slug: $slug}}) {
+    id
+    posts {
+      id
+      slug
+      title
+    }
+  }
+}
+
+    `
+    const posts = await request(graphqlAPI, query, {slug: slug})
+        .then((result) => result.groups[0].posts)
+
+    let previous
+    let next
+
+    posts.map((post, index, elem) => {
+        if (post.slug == slug) {
+        if (elem[index-1]) {
+            previous = elem[index-1]
+        }
+        if (elem[index+1]) {
+            next = elem[index+1]
+        }
+        }
+    })
+
+
+    return {previous: previous, next: next}
 }

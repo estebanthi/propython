@@ -63,7 +63,7 @@ const GroupCard = ({group}) => {
             <p className="text-center text-lg text-gray-700 font-normal px-4 lg:px-20 mb-8">{group.description}</p>
             <div className="flex justify-center items-center flex-col mb-8">
                 <h3 className="font-semibold my-4">Contient les articles suivants : </h3>
-                {group.posts.map((post) => <span className="my-1 text-blue-900">{post.title}</span>)}
+                {group.posts.map((post) => <Link href={"/post/"+post.slug}><span className="my-1 text-blue-900 cursor-pointer">{post.title}</span></Link>)}
             </div>
             <div className="text-center">
                 {group.premium ? (status == "unauthenticated" ?
