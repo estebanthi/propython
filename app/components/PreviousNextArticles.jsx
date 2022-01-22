@@ -26,7 +26,7 @@ const PreviousNextArticles = ({slug}) => {
     return (
         <div className="flex justify-between my-12">
             <div>
-                {previous && <div className="bg-white p-4 rounded-lg w-52 flex items-center font-semibold cursor-pointer" onClick={() => window.location = "/post/"+previous.slug}>{<ArrowBackIos />}{next.title}</div>}
+                {previous && <div className="bg-white p-4 rounded-lg w-52 flex items-center font-semibold cursor-pointer" onClick={() => window.location = "/post/"+previous.slug}>{<ArrowBackIos />}{previous.title}</div>}
             </div>
             <div>
                 {next && <div className="bg-white p-4 rounded-lg w-52 flex items-center font-semibold cursor-pointer" onClick={() => window.location = "/post/"+next.slug}>{next.title}{<ArrowForwardIos />}</div>}
