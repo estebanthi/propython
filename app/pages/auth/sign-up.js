@@ -10,6 +10,7 @@ const SignUpPage = () => {
             <Head>
                 <title>Créer un compte - ProPython
                 </title>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
             </Head>
             <SignUpForm />
         </div>

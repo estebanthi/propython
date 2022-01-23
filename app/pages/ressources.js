@@ -14,7 +14,7 @@ const RessourcesPage = ({ressources}) => {
             <Head>
                 <title>Ressources - ProPython</title>
                 <meta name="description" content="Retrouvez ici toutes les ressources dont vous avez besoin lors de votre apprentissage du Python sur ProPython !"/>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
             </Head>
                     {ressources.map((ressource, index) => (
                         <RessourceCard ressource={ressource} key={ressource.title} />

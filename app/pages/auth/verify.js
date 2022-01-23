@@ -9,6 +9,7 @@ const VerifyPage = () => {
         <div className="mb-20">
             <Head>
                 <title>Vérification - ProPython</title>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
             </Head>
             <VerifyForm />
         </div>

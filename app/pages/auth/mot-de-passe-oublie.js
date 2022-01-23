@@ -8,7 +8,8 @@ export default function Page() {
     return (
         <div className="my-10">
             <Head>
-                <title>Créer un compte - ProPython
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
+                <title>Mot de passe oublié
                 </title>
             </Head>
             <div className="flex justify-center items-center">

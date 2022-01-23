@@ -14,6 +14,7 @@ const PremiumPage = ({posts}) => {
         <div>
             <Head>
                 <title>Premium - ProPython</title>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
                 <meta name="description" content="Passez premium et accélérez votre apprentissage avec du contenu inédit. Découvrez de réelles applications et de vrais projets afin de consolider vos connaissances."/>
             </Head>
             <div className="container mx-auto px-10 mb-8">

@@ -53,6 +53,7 @@ const PostDetails = ({post}) => {
             <Head>
                 <title>{post.title}</title>
                 <meta name="description" content={post.excerpt}/>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
             </Head>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="col-span-1 lg:col-span-8">

@@ -10,6 +10,7 @@ const SignInPage = () => {
     return (
         <div className="flex justify-center mb-20">
             <Head>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
                 <title>Se connecter - ProPython</title>
             </Head>
             <SignInForm/>

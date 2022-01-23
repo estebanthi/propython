@@ -34,6 +34,7 @@ const CategoryPost = ({ posts, groups, slug }) => {
     return (
         <div className="container mx-auto px-10 mb-8">
             <Head>
+                <link rel="icon" href="https://media.graphcms.com/OYRgW8aSKuiUBJTEehZA" />
                 <title>
                     {(slug.split(' ')
                         .map(w => w[0].toUpperCase() + w.substring(1).toLowerCase())
