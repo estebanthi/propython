@@ -52,4 +52,8 @@ const parseType = (fileName) => {
         return 'application/csv'
     }
 
+    if (fileName.includes(".zip")) {
+        return 'application/zip'
+    }
+
 }
