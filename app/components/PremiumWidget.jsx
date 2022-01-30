@@ -20,7 +20,7 @@ const PremiumWidget = () => {
 
     useEffect(async () => {
         const premiums = await countPremiums()
-        setCount(premiums-1)
+        setCount(premiums+1)
         const session = await getSession()
         setSession(session)
         if (session) { if (session.user.isPremium) {
