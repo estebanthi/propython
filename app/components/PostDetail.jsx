@@ -64,17 +64,17 @@ const PostDetail = ({post}) => {
         let result
         switch (type) {
             case 2:
-                result = <h1 className="text-3xl font-semibold mb-4"
-                             id={counter}>{children}</h1>
+                result = <h2 className="text-3xl font-semibold mb-4"
+                             id={counter}>{children}</h2>
                 break
             case 3:
-                result = <h2 className="text-2xl font-semibold mb-4" id={counter}>{children}</h2>
+                result = <h3 className="text-2xl font-semibold mb-4" id={counter}>{children}</h3>
                 break
             case 4:
-                result = <h3 className="text-xl font-semibold mb-4" id={counter}>{children}</h3>
+                result = <h4 className="text-xl font-semibold mb-4" id={counter}>{children}</h4>
                 break
             case 5:
-                result = <h4 className="text-lg font-semibold mb-4" id={counter}>{children}</h4>
+                result = <h5 className="text-lg font-semibold mb-4" id={counter}>{children}</h5>
                 break
         }
         counter += 1

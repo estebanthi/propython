@@ -10,7 +10,6 @@ const pipeline = promisify(stream.pipeline);
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export default async function asynchandler(req, res) {
-    if (!checkAppAuthorization(req)) { return res.status(403).json("Access denied") }
 
     const graphQLClient = new GraphQLClient((graphqlAPI), {
         headers: {
@@ -51,6 +50,10 @@ const parseType = (fileName) => {
 
     if (fileName.includes(".csv")) {
         return 'application/csv'
+    }
+
+    if (fileName.includes(".zip")) {
+        return 'application/zip'
     }
 
 }
