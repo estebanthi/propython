@@ -325,11 +325,6 @@ export const countPremiums = async() => {
 }
 
 
-export const goPremium = async(email) => {
-    const result = await axios.post("/api/users/go-premium", {email: email, premium: true}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
-    const publishResult = await axios.post("/api/users/publish", {email: email}, {headers: {authorization: process.env.NEXT_PUBLIC_APP_AUTHORIZATION}})
-    return publishResult.data
-}
 
 
 export const goPremiumLimited = async (email) => {
