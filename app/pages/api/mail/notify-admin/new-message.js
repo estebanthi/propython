@@ -11,7 +11,7 @@ export default async function asynchandler(req, res) {
     const msg = {
         to: process.env.NEXT_PUBLIC_CONTACT_EMAIL, // Change to your recipient
         from: process.env.NEXT_PUBLIC_ADMIN_EMAIL, // Change to your verified sender
-        subject: 'Nouveau message',
+        subject: 'Nouveau message de ' + req.body.username,
         text: "Utilisateur : " + req.body.username + "\nEmail : " + req.body.email +"\nMessage : " + req.body.message
     }
      await sgMail.send(msg)
