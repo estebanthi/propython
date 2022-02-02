@@ -16,6 +16,7 @@ const Success = () => {
 
 
     const [success, setSuccess] = useState(false)
+    const [session, setSession] = useState()
     const [loaded, setLoaded] = useState(false)
     const router = useRouter()
     const {session_id} = router.query
@@ -34,10 +35,10 @@ const Success = () => {
             })
         if(data) {{
             const session = await getSession()
+            setSession(session)
             setSuccess(true)
             setLoaded(true)
             await goPremiumLimited(session.user.email)
-                .then(() => signIn("credentials", {email: session.user.email, password: session.user.password, callbackUrl: "/"}))
 
         }
         }
@@ -53,6 +54,7 @@ const Success = () => {
             loader={myLoader}
             height={143}
             width={402}/>
+            <button onClick={async () => await signIn("credentials", {email: session.user.email, password: session.user.password, callbackUrl: "/"})}>Cliquez ici pour vous reconnecter</button>
         </div> : <div className="flex justify-center flex-col items-center bg-white rounded-lg p-8 mt-20 lg:mx-[300px] mx-20"><h1 className="text-3xl font-bold my-6">Session invalide</h1>
             <span className="text-xl text-red-500 font-semibold my-3">La transaction n'existe pas ou n'a pas pu se réaliser. Si vous pensez qu'il s'agit d'une erreur, contactez le site.</span>
         </div>)}</div>
