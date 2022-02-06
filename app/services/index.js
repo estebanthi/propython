@@ -336,8 +336,8 @@ export const goPremiumLimited = async (email) => {
 
 export const getGroups = async (slug) => {
     const query = gql`
-    query MyQuery {
-  groupsConnection(where: {category: {slug: "formations"}}) {
+    query MyQuery($slug: String!) {
+  groupsConnection(where: {category: {slug: $slug}}) {
     edges {
       node {
         id
