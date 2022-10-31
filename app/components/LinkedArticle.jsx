@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import Link from "next/link";
 import {getRecentPosts, getSimilarPosts} from "../services";
+import {modifyPostCreatedAt} from "../utils";
 
 const LinkedArticle = ({post}) => {
+
+    modifyPostCreatedAt(post)
 
     return (
         <div className="bg-white shadow-lg rounded-lg p-4 w-96">

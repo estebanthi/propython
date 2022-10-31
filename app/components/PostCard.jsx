@@ -3,6 +3,7 @@ import moment from "moment";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import {WorkspacePremium} from "@mui/icons-material";
+import {modifyPostCreatedAt} from "../utils";
 
 const PostCard = ({post}) => {
 
@@ -12,6 +13,7 @@ const PostCard = ({post}) => {
     if (post.prerequis) {
         prerequis = post.prerequis.split("\n")
     }
+    modifyPostCreatedAt(post)
 
     const getColors = () => {
         switch (post.difficulty) {

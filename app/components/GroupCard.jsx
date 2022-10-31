@@ -3,12 +3,14 @@ import moment from "moment";
 import {WorkspacePremium} from "@mui/icons-material";
 import React from "react";
 import {useSession} from "next-auth/react";
+import {modifyPostCreatedAt} from "../utils";
 
 
 const GroupCard = ({group}) => {
 
     const { data: session, status } = useSession()
 
+    modifyPostCreatedAt(group)
     let prerequis
     if (group.prerequis) {
         prerequis = group.prerequis.split("\n")

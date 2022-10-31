@@ -8,6 +8,7 @@ import {Switch} from "@material-ui/core";
 import Toggler from "./Toggler";
 import TableOfContents from "./TableOfContents";
 import {WorkspacePremium} from "@mui/icons-material";
+import {modifyPostCreatedAt} from "../utils";
 
 
 
@@ -48,6 +49,7 @@ const PostDetail = ({post}) => {
     if (post.prerequis) {
         prerequis = post.prerequis.split("\n")
     }
+    modifyPostCreatedAt(post)
 
     const getColors = () => {
         switch (post.difficulty) {

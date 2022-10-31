@@ -3,6 +3,7 @@ import moment from "moment";
 import Link from "next/link";
 import {getRecentPosts, getSimilarPosts} from "../services";
 import {WorkspacePremium} from "@mui/icons-material";
+import {modifyPostCreatedAt} from "../utils";
 
 const PostWidget = ({ categories, slug }) => {
     const [relatedPosts, setRelatedPosts] = useState([])
@@ -18,6 +19,9 @@ const PostWidget = ({ categories, slug }) => {
             }
         }, [slug]
     )
+
+    relatedPosts.map(post => modifyPostCreatedAt(post))
+
     return (
         <div className="bg-white shadow-lg rounded-lg p-8 mb-8">
             <h1 className="text-xl mb-8 font-semibold border-b pb-4">
