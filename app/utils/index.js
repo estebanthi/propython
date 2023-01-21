@@ -7,14 +7,9 @@ export function checkAppAuthorization(req) {
 }
 
 export function modifyPostCreatedAt(post) {
-    const referenceDate = new Date(2022, 9, 17);
+    const offset = process.env.DATE_OFFSET || 0; // get the offset from the environment variable or use 0 if it's not set
     const postDate = new Date(post.createdAt);
-
-    const deltaTime = referenceDate.getTime() - postDate.getTime();
-
-    const dateNow = new Date();
-    const newDate = new Date(dateNow.getTime() - deltaTime);
-
-    post.createdAt = newDate
-    return post
+    const newDate = new Date(postDate.getTime() + (offset * 24 * 60 * 60 * 1000)); // offset the postDate by the number of days specified in the offset variable
+    post.createdAt = newDate;
+    return post;
 }
