@@ -8,10 +8,13 @@ export function checkAppAuthorization(req) {
 
 export function modifyPostCreatedAt(post) {
     const offset = process.env.DATE_OFFSET || 0;
-    const referenceDate = new Date("2022-09-01T00:00:00.000Z");
+    const referenceDate = new Date(2022, 8, 1);
 
     const postDate = new Date(post.createdAt);
     const diff = referenceDate.getTime() - postDate.getTime();
+    console.log(diff)
+    console.log(postDate)
+    console.log(referenceDate)
     let targetDate = new Date();
     targetDate.setTime(targetDate.getTime() - diff);
     targetDate.setDate(targetDate.getDate() - offset);
